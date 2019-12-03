@@ -1,0 +1,19 @@
+
+<ion-content>
+
+    <div #map>
+      <ion-searchbar [(ngModel)]="pesquisa" [hidden]="local" (ionChange)="pesquisaChanged()" mode="ios" cancelButtonText="Cancel" placeholder="Onde há problemas?" ></ion-searchbar>
+      
+      <ion-button class="ion-margin-top" (click)="voltar()" size="small" [hidden]="!local">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+
+      <ion-list class="ion-margin-horizontal" [hidden]="!pesquisa.length">
+        <ion-item (click)="addMarker(result)" *ngFor="let result of PesResult">
+          {{ result.description }}
+        </ion-item>
+      </ion-list>
+    </div>
+
+  
+</ion-content>

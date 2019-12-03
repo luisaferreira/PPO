@@ -1,0 +1,63 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Descrição</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+    <ion-radio-group [(ngModel)]="relato.ocorrido">
+
+        <ion-item>
+          <ion-label>Falta de água</ion-label>
+          <ion-radio slot="start" value="falta de água" checked></ion-radio>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Cano estourado</ion-label>
+          <ion-radio slot="start" value="cano estourado"></ion-radio>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label>Esgoto à céu aberto</ion-label>
+          <ion-radio slot="start" value="esgoto à céu aberto"></ion-radio>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Má iluminação pública</ion-label>
+          <ion-radio slot="start" value="má iluminação"></ion-radio>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Não há iluminação pública</ion-label>
+          <ion-radio slot="start" value="não há iluminação"></ion-radio>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Rua má asfaltada</ion-label>
+          <ion-radio slot="start" value="rua má asfaltada"></ion-radio>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Rua esburacada</ion-label>
+          <ion-radio slot="start" value=""></ion-radio>
+        </ion-item>
+        
+        <ion-item>
+          <ion-label>Rua sem asfalto</ion-label>
+          <ion-radio slot="start" value="rua sem asfalto"></ion-radio>
+        </ion-item>
+
+      </ion-radio-group>
+  </ion-list>
+
+  <ion-item lines="none">
+    <ion-textarea rows="6" cols="20" placeholder="Descreva o problema." [(ngModel)]="relato.descricao"></ion-textarea>
+  </ion-item>
+  <ion-button expand="block" color="dark" (click)="envDenuncia()">Enviar denúncia</ion-button>
+
+</ion-content>
