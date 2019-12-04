@@ -1,0 +1,18 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button></ion-back-button>
+      </ion-buttons>
+      <ion-title>Atualizar email</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content>
+    <ion-list class="ion-padding">
+        <ion-item lines="full">
+          <ion-input placeholder="Novo e-mail" type="text" [(ngModel)]="usuario.email"></ion-input>
+        </ion-item>
+    
+          <ion-button class="ion-margin-vertical" shape="round" expand="block" color="dark" (click)="atualizarEmail()">Atualizar</ion-button>
+      </ion-list>    
+</ion-content>

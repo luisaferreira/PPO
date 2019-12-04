@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { redSenhaPageRoutingModule } from './redSenha-routing.module';
+import { ExcluirContaPageRoutingModule } from './excluir-conta-routing.module';
 
-import { redSenhaPage } from './redSenha.page';
+import { ExcluirContaPage } from './excluir-conta.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    redSenhaPageRoutingModule
+    ExcluirContaPageRoutingModule
   ],
-  declarations: [redSenhaPage]
+  declarations: [ExcluirContaPage]
 })
-export class redSenhaPageModule {}
+export class ExcluirContaPageModule {}

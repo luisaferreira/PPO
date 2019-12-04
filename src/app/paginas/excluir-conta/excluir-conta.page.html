@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons>
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Excluir Conta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="ion-padding" style="text-align: center;">
+      <h4>Deseja mesmo excluir sua conta?</h4>
+      <p>O processo não poderá ser desfeito.</p>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+              <ion-button class="ion-margin-vertical" shape="round" expand="block" color="dark" routerLink="/configuracoes">Não excluir</ion-button>
+          </ion-col>
+          <ion-col>
+              <ion-button class="ion-margin-vertical" shape="round" expand="block" color="danger" (click)="excluirConta()">Excluir</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+  </div>
+
+</ion-content>

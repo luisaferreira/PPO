@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { RedemailPageRoutingModule } from './redemail-routing.module';
+import { NewSenhaPageRoutingModule } from './new-senha-routing.module';
 
-import { RedemailPage } from './redemail.page';
+import { NewSenhaPage } from './new-senha.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RedemailPageRoutingModule
+    NewSenhaPageRoutingModule
   ],
-  declarations: [RedemailPage]
+  declarations: [NewSenhaPage]
 })
-export class RedemailPageModule {}
+export class NewSenhaPageModule {}

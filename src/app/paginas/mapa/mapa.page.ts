@@ -60,6 +60,7 @@ export class MapaPage implements OnInit {
       //captando a localização atual do usuário, PS.: SÓ SERÁ FEITO SE O USUÁRIO PERMITIR
       const myLocation: MyLocation = await this.mapa.getMyLocation();
 
+      //pra dar zoom
       await this.mapa.moveCamera({
         target: myLocation.latLng,
         zoom: 18
@@ -78,7 +79,6 @@ export class MapaPage implements OnInit {
       this.pesquisa = '';
       this.local = item;
       console.log(item);
-      // console.log(this.local);
       //pegando a latitude e a longitude dos pontos do mapa
        const info: any = await Geocoder.geocode({address: this.local.description});
 

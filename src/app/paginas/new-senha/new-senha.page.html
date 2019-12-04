@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Atualizar senha</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list class="ion-padding">
+    <ion-item lines="full">
+      <ion-input placeholder="Nova senha" type="password" [(ngModel)]="usuario.senha"></ion-input>
+    </ion-item>
+
+    <ion-item lines="full">
+      <ion-input placeholder="Confirme a nova senha" type="password" [(ngModel)]="usuario.confsenha"></ion-input>
+    </ion-item>
+
+      <ion-button class="ion-margin-vertical" shape="round" expand="block" color="dark" (click)="atualizarSenha()">Atualizar</ion-button>
+  </ion-list>
+
+</ion-content>
