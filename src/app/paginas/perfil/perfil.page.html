@@ -1,11 +1,33 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>perfil</ion-title>
+    <ion-button slot="end" href="/configuracoes">
+        <ion-icon slot="icon-only" name="settings"></ion-icon>
+      </ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-  <ion-button color="dark" expand="block" routerLink="/relato">Adicionar relato</ion-button>
+  <div class="ion-padding">
+      <ion-item lines="none">
+          <ion-avatar slot="start">
+            <ion-skeleton-text></ion-skeleton-text>
+          </ion-avatar>
+          <ion-label>
+            <h2>Valdomiro, 18</h2>
+            <p>Garanhuns-PE</p>
+          </ion-label>
+        </ion-item>
+  </div>
+
+  <ion-segment (ionChange)="segmentChanged($event)">
+    <ion-segment-button value="friends" checked>
+      <ion-label>Pendentes</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="enemies">
+      <ion-label>Resolvidos</ion-label>
+    </ion-segment-button>
+  </ion-segment>
 
 </ion-content>

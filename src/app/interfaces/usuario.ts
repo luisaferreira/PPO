@@ -3,6 +3,6 @@ export interface Usuario {
     senha?: string;
     confsenha?: string;
     nome?: string;
-    cidade?: string;
+    pais?: string;
     idade?: number;
 }

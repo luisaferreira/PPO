@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Configurações</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="profile-info">
+    <ion-item button routerLink="/redSenha">
+      <ion-icon slot="start" name="key"></ion-icon>
+      <ion-label>Redefinição de senha</ion-label>
+    </ion-item>
+    <ion-item button (click)="logout()">
+      <ion-icon slot="start" name="exit"></ion-icon>
+      <ion-label>Sair</ion-label>
+    </ion-item>
+  </div>
+
+</ion-content>

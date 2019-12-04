@@ -11,7 +11,8 @@ export class RelatosService {
   private relatosCollection: AngularFirestoreCollection<Relato>;
 
   constructor(
-    private afstore: AngularFirestore) {
+    private afstore: AngularFirestore
+    ) {
     this.relatosCollection = this.afstore.collection<Relato>('Denúncias');
   }
 
@@ -39,7 +40,7 @@ export class RelatosService {
 
   //atualizar o relato
   updateRelato(id: string, relato: Relato) {
-
+    return this.relatosCollection.doc<Relato>(id).update(relato);
   }
 
   deleteRelato(id: string) {

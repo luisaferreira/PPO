@@ -27,7 +27,7 @@ export class CadastroPage implements OnInit {
   }
 
   async cadastrar() {
-    await this.presentLoading();
+    // await this.presentLoading();
 
     if (this.usuario.senha != this.usuario.confsenha) {
       this.presentToast("The passwords doesn't match!");
@@ -44,13 +44,13 @@ export class CadastroPage implements OnInit {
 
 
       await this.afStore.collection('Usuários').doc(nvUsuario.user.uid).set(nvUsuarioObject) //envia para o banco todos os dados ao invés de apenas e-mail e senha
-      this.router.navigate(['/tabs/home']);
+      this.router.navigate(['/tabs']);
     } catch (error) {
 
       console.dir(error);
       this.presentToast(error.message);
     } finally {
-      this.loading.dismiss();
+      // this.loading.dismiss();
     }
   }
 
@@ -65,7 +65,7 @@ export class CadastroPage implements OnInit {
   async presentToast(msg: string) {
     const toast = await this.toastCtrl.create({
       message: msg,
-      duration: 2000
+      duration: 20000
     });
     toast.present();
   }

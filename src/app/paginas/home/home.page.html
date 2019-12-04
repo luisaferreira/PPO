@@ -30,10 +30,16 @@
         <ion-label>
           {{ relato.ocorrido }}
           <p>{{ relato.descricao }}</p>
-          <p>{{ relato.createdAt | date: 'short' }}</p>
+          <p>{{ relato.createdAt }}</p>
         </ion-label>
       </ion-item>
     </ion-item>
   </ion-list>
 
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-button expand="block" shape="round" routerLink="/relato">Adicionar</ion-button>
+  </ion-toolbar>
+</ion-footer>

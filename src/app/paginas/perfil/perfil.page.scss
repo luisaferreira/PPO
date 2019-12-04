@@ -1,0 +1,20 @@
+ion-avatar {
+    width: 80px;
+    height: 80px;
+}
+
+ion-button{
+    --background: none;
+    --background-activated: none;
+    --color: #000;
+    --box-shadow: none;
+    --background-hover: none;
+}
+
+ion-segment-button {
+    --background-activated: #000;
+    --background-checked: #000;
+    --border-color: #000;
+    --color: #000;
+    --color-checked: #fff;
+}

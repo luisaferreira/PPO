@@ -2,6 +2,6 @@ export interface Relato {
     id?: string;
     ocorrido?: string;
     descricao?: string;
-    createdAT?: number;
+    createdAt?: number;
     userId?: string;
 }

@@ -42,13 +42,13 @@ export class RelatoPage implements OnInit {
 
   async envDenuncia() {
     this.relato.userId = this.afAuth.auth.currentUser.uid;
-  
-    this.relato.createdAT = new Date().getDate();
+    // this.relato.userId = this.afAuth.auth.currentUser.uid;
+
+    this.relato.createdAt = new Date().getDay();
 
     try{
       await this.relatosService.addRelato(this.relato);
-
-      // this.navCtrl.navigateBack('perfil');
+      this.navCtrl.navigateBack('tabs');
     } catch (error) {
       console.log(error);
     }
