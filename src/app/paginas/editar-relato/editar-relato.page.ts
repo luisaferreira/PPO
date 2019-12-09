@@ -7,11 +7,11 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-relato',
-  templateUrl: './relato.page.html',
-  styleUrls: ['./relato.page.scss'],
+  selector: 'app-editar-relato',
+  templateUrl: './editar-relato.page.html',
+  styleUrls: ['./editar-relato.page.scss'],
 })
-export class RelatoPage implements OnInit {
+export class EditarRelatoPage implements OnInit {
 
   private relato: Relato = {};
   private relatoId: string = null;
@@ -26,12 +26,22 @@ export class RelatoPage implements OnInit {
     private loadingCtrl: LoadingController,
     private toastCtrl: ToastController
   ) {
-    this.relatoId = this.activatedRoute.snapshot.params['id'];
-
-    if (this.relatoId) this.loadRelato();
+    
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.activatedRoute.params 
+      .subscribe(params => {
+        this.inicializar(params['id']);
+      })
+   }
+
+   inicializar(id: string) {
+    console.log('inicializado: ' + id);
+    this.relatoId = id;
+
+    if (this.relatoId) this.loadRelato();
+   }
 
   ngOnDestroy() {
     if (this.relatoSubscription) this.relatoSubscription.unsubscribe();
@@ -43,36 +53,30 @@ export class RelatoPage implements OnInit {
     });
   }
 
-  async denuncia() {
+  async updateRelato() {
     await this.presentLoading();
 
-    this.relato.userId = this.afAuth.auth.currentUser.uid;
-
-    if (this.relatoId) {
-      try {
-        await this.relatosService.updateRelato(this.relatoId, this.relato);
-
-        await this.loading.dismiss();
-
-        this.navCtrl.navigateBack('/home');
-      } catch (error) {
-        this.presentToast("Erro ao tentar atualizar produto");
-        this.loading.dismiss();
-      }
-    } else {
-      // this.relato.createdAt = new Date().toJSON().slice(0, 10).replace(/-/g, '/');
-      this.relato.createdAt = new Date().getTime();
-
-      try {
-        await this.relatosService.addRelato(this.relato);
-        this.navCtrl.navigateBack('tabs');
-      } catch (error) {
-        console.log(error);
-      } finally {
-        this.loading.dismiss();
-      }
+    try {
+      await this.relatosService.updateRelato(this.relatoId, this.relato);
+      this.navCtrl.navigateBack('/tabs/home');
+    } catch (error) {
+      this.presentToast("Erro ao atualizar o relato");
+    } finally {
+      this.loading.dismiss();
     }
+  }
 
+  async deleteRelato(id: string) {
+    await this.presentLoading();
+
+    try{
+      await this.relatosService.deleteRelato(this.relatoId);
+    } catch (error) {
+      this.presentToast("Erro ao excluir o relato")
+      console.log(error);
+    } finally {
+      this.loading.dismiss();
+    }
   }
 
   async presentLoading() {

@@ -4,4 +4,7 @@ export interface Relato {
     descricao?: string;
     createdAt?: number;
     userId?: string;
+    lat?: number;
+    lng?: number;
+    local?: string;
 }

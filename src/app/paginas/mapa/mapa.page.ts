@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
 import { Platform, LoadingController } from '@ionic/angular';
 import { Environment, GoogleMap, GoogleMaps, GoogleMapOptions, GoogleMapsEvent, MyLocation, GoogleMapsAnimation, Geocoder, Marker } from '@ionic-native/google-maps';
+import { Router } from '@angular/router';
 
 declare var google: any;
 
@@ -22,7 +23,8 @@ export class MapaPage implements OnInit {
   constructor(
     private platform: Platform, //usado para poder acessar a largura e altura do dispositivo
     private loadingCtrl: LoadingController,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private router: Router 
   ) { }
 
   ngOnInit() {
@@ -88,6 +90,8 @@ export class MapaPage implements OnInit {
          position: info[0].position
        });
 
+       this.router.navigate(['relato']);
+
     } catch (error) {
       console.error(error);
     }
@@ -113,12 +117,6 @@ export class MapaPage implements OnInit {
       console.error(error);
     }
   }
-
-
-
-
-
-
 
   async presentLoading() {
     this.loading = await this.loadingCtrl.create({

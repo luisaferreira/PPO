@@ -1,36 +1,49 @@
-<ion-content padding>
-
-  <ion-toolbar>
-    <ion-title>Cadastro</ion-title>
-  </ion-toolbar>
-
-  <ion-list>
+<ion-content class="ion-padding">
 
 
-    <ion-item>
-      <ion-label position="floating">Nome</ion-label>
-      <ion-input type="text" [(ngModel)]="usuario.nome"></ion-input>
+  <div id="div-cadastro" class="ion-padding" lines="full">
+    <!-- <span>Login</span> -->
+    <ion-item class="ion-margin-top" lines="none">
+      <ion-input type="email" placeholder="   Nome" [(ngModel)]="usuario.nome">
+        <ion-icon name="contact" slot="start"></ion-icon>
+      </ion-input>
     </ion-item>
 
-    <ion-item>
-      <ion-label position="floating">E-mail</ion-label>
-      <ion-input type="text" [(ngModel)]="usuario.email"></ion-input>
+    <ion-item class="ion-margin-top" lines="none">
+      <ion-datetime [pickerOptions]="customPickerOptions" placeholder="Ano de Nascimento" displayFormat="YYYY"
+        [(ngModel)]="usuario.anoNasc">
+        <ion-icon name="calendar" slot="start"></ion-icon>
+      </ion-datetime>
     </ion-item>
 
-    <ion-item>
-      <ion-label position="floating">Senha</ion-label>
-      <ion-input type="password" [(ngModel)]="usuario.senha"></ion-input>
+    <ion-item class="ion-margin-top" lines="none">
+      <ion-label>Estado:</ion-label>
+      <ion-label> {{ estado }} </ion-label>
+      <ion-button slot="end" fill="clear" (click)="presentPicker()">Estado</ion-button>
+
     </ion-item>
 
-
-    <ion-item>
-      <ion-label position="floating">Confirmar Senha</ion-label>
-      <ion-input type="password" [(ngModel)]="usuario.confsenha"></ion-input>
+    <ion-item class="ion-margin-top" lines="none">
+      <ion-input type="email" placeholder="   E-mail" [(ngModel)]="usuario.email">
+        <ion-icon name="mail" slot="start"></ion-icon>
+      </ion-input>
     </ion-item>
 
-  </ion-list>
+    <ion-item class="ion-margin-top" lines="none">
+      <ion-input type="password" placeholder="   Senha" [(ngModel)]="usuario.senha">
+        <ion-icon name="key" slot="start"></ion-icon>
+      </ion-input>
+    </ion-item>
 
+    <ion-item class="ion-margin-top" lines="none">
+      <ion-input type="password" placeholder="   Confirme a Senha" [(ngModel)]="usuario.confsenha">
+        <ion-icon name="key" slot="start"></ion-icon>
+      </ion-input>
+    </ion-item>
 
-  <ion-button (click)="cadastrar()" fill="solid" shape="round" expand="block" color="dark">cadastrar</ion-button>
+    <ion-button id="button-login" class="ion-margin-top" (click)="cadastrar()" fill="solid" expand="block">Cadastrar
+    </ion-button>
+  </div>
+
 
 </ion-content>

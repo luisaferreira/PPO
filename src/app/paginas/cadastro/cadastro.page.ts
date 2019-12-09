@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from 'src/app/interfaces/usuario';
-import { LoadingController, ToastController } from '@ionic/angular';
+import { LoadingController, ToastController, PickerController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore'
+import { PickerOptions } from '@ionic/core';
+import { __await } from 'tslib';
 
 @Component({
   selector: 'app-cadastro',
@@ -14,13 +16,15 @@ export class CadastroPage implements OnInit {
 
   public usuario: Usuario = {};
   private loading: any;
+  private estado = '';
 
   constructor(
     private afAuth: AngularFireAuth,
     private afStore: AngularFirestore,
     private loadingCtrl: LoadingController,
     private toastCtrl: ToastController,
-    public router: Router
+    public router: Router,
+    private pickerCtrl: PickerController
   ) { }
 
   ngOnInit() {
@@ -65,8 +69,63 @@ export class CadastroPage implements OnInit {
   async presentToast(msg: string) {
     const toast = await this.toastCtrl.create({
       message: msg,
-      duration: 20000
+      duration: 2000
     });
     toast.present();
+  }
+
+  async presentPicker() {
+    let options: PickerOptions = {
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel'
+        },
+        {
+          text: 'Done'
+        }
+      ],
+      columns: [
+        {
+          name: 'estado',
+          options: [
+            { text: 'Acre', value: 'Acre' },
+            { text: 'Alagoas', value: 'Alagoas' },
+            { text: 'Amapá', value: 'Amapá' },
+            { text: 'Amazonas', value: 'Amazonas' },
+            { text: 'Bahia', value: 'Bahia' },
+            { text: 'Ceará', value: 'Ceará' },
+            { text: 'Distrito Federal', value: 'Distrito Federal' },
+            { text: 'Goiás', value: 'Goiás' },
+            { text: 'Maranhão', value: 'Maranhão' },
+            { text: 'Mato Grosso', value: 'Mato Grosso' },
+            { text: 'Mato Grosso do Sul', value: 'Mato Grosso do Sul' },
+            { text: 'Minas Gerais', value: 'Minas Gerais' },
+            { text: 'Pará', value: 'Pará' },
+            { text: 'Paraíba', value: 'Paraíba' },
+            { text: 'Paraná', value: 'Paraná' },
+            { text: 'Pernambuco', value: 'Pernambuco' },
+            { text: 'Piauí', value: 'Piauí' },
+            { text: 'Rio de Janeiro', value: 'Rio de Janeiro' },
+            { text: 'Rio Grande do Norte', value: 'Rio Grande do Norte' },
+            { text: 'Rio Grande do Sul', value: 'Rio Grande do Sul' },
+            { text: 'Rondônia', value: 'Rondônia' },
+            { text: 'Roraima', value: 'Roraima' },
+            { text: 'Santa Catarina', value: 'Santa Catarina' },
+            { text: 'São Paulo', value: 'São Paulo' },
+            { text: 'Sergipe', value: 'Sergipe' },
+            { text: 'Tocantins', value: 'Tocantins' },
+          ]
+        }
+      ]
+    };
+    const picker = await this.pickerCtrl.create(options);
+    picker.present();
+    picker.onDidDismiss().then(async data => {
+      let col = await picker.getColumn('estado');
+      console.log('col: ', col);
+      this.estado = col.options[col.selectedIndex].text;
+
+    })
   }
 }

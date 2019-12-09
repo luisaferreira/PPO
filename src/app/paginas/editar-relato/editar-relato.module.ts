@@ -4,18 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { RelatoPageRoutingModule } from './relato-routing.module';
+import { EditarRelatoPageRoutingModule } from './editar-relato-routing.module';
 
-import { RelatoPage } from './relato.page';
+import { EditarRelatoPage } from './editar-relato.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    RelatoPageRoutingModule
+    EditarRelatoPageRoutingModule
   ],
-  declarations: [RelatoPage],
-  exports: [RelatoPage]
+  declarations: [EditarRelatoPage]
 })
-export class RelatoPageModule {}
+export class EditarRelatoPageModule {}

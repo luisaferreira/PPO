@@ -58,6 +58,12 @@
   <ion-item lines="none">
     <ion-textarea rows="6" cols="20" placeholder="Descreva o problema." [(ngModel)]="relato.descricao"></ion-textarea>
   </ion-item>
-  <ion-button expand="block" color="dark" (click)="envDenuncia()">Enviar denúncia</ion-button>
 
 </ion-content>
+
+
+<ion-footer>
+    <ion-toolbar>
+        <ion-button expand="block" color="dark" shape="round" (click)="denuncia()">Enviar denúncia</ion-button>
+    </ion-toolbar>
+  </ion-footer>

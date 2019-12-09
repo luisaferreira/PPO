@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Relato } from '../interfaces/relato';
 import { map } from 'rxjs/operators';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,8 @@ export class RelatosService {
   private relatosCollection: AngularFirestoreCollection<Relato>;
 
   constructor(
-    private afstore: AngularFirestore
+    private afstore: AngularFirestore,
+    private afAuth: AngularFireAuth
     ) {
     this.relatosCollection = this.afstore.collection<Relato>('Denúncias');
   }
@@ -43,6 +45,7 @@ export class RelatosService {
     return this.relatosCollection.doc<Relato>(id).update(relato);
   }
 
+  //deletar o relato
   deleteRelato(id: string) {
     return this.relatosCollection.doc(id).delete();
   }

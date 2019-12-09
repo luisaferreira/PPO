@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Relato } from 'src/app/interfaces/relato';
 import { RelatosService } from 'src/app/services/relatos.service';
 import { Subscription } from 'rxjs';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +15,8 @@ export class HomePage implements OnInit{
   private relatosSubscription: Subscription;
 
   constructor(
-    private relatosService: RelatosService
+    private relatosService: RelatosService,
+    private afAuth: AngularFireAuth
   ) {
     this.relatosSubscription = this.relatosService.getRelatos().subscribe(data => {
       this.relatos = data;
@@ -25,5 +27,13 @@ export class HomePage implements OnInit{
 
   ngOnDestroy() {
     this.relatosSubscription.unsubscribe();
+  }
+
+  async deleteRelato(id: string) {
+    try {
+      await this.relatosService.deleteRelato(id);
+    } catch (error) {
+      console.log(error);      
+    }
   }
 }
