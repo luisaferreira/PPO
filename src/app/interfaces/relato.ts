@@ -7,4 +7,5 @@ export interface Relato {
     lat?: number;
     lng?: number;
     local?: string;
+    resolvido?: boolean;
 }

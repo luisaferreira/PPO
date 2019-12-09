@@ -87,7 +87,7 @@ export class CadastroPage implements OnInit {
       ],
       columns: [
         {
-          name: 'estado',
+          name: 'usuario.estado',
           options: [
             { text: 'Acre', value: 'Acre' },
             { text: 'Alagoas', value: 'Alagoas' },
@@ -122,7 +122,7 @@ export class CadastroPage implements OnInit {
     const picker = await this.pickerCtrl.create(options);
     picker.present();
     picker.onDidDismiss().then(async data => {
-      let col = await picker.getColumn('estado');
+      let col = await picker.getColumn('usuario.estado');
       console.log('col: ', col);
       this.estado = col.options[col.selectedIndex].text;
 

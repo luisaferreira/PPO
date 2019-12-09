@@ -29,11 +29,4 @@ export class HomePage implements OnInit{
     this.relatosSubscription.unsubscribe();
   }
 
-  async deleteRelato(id: string) {
-    try {
-      await this.relatosService.deleteRelato(id);
-    } catch (error) {
-      console.log(error);      
-    }
-  }
 }

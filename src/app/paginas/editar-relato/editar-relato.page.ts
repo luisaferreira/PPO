@@ -17,6 +17,7 @@ export class EditarRelatoPage implements OnInit {
   private relatoId: string = null;
   private relatoSubscription: Subscription
   private loading: any;
+  private usuarioId: string = this.afAuth.auth.currentUser.uid
 
   constructor(
     private afAuth: AngularFireAuth,

@@ -26,7 +26,7 @@ export class RelatoPage implements OnInit {
     private loadingCtrl: LoadingController,
     private toastCtrl: ToastController
   ) {
-    this.relatoId = this.activatedRoute.snapshot.params['id'];
+    this.relatoId = this.activatedRoute.snapshot.params['createdAt'];
 
     if (this.relatoId) this.loadRelato();
   }
@@ -48,29 +48,17 @@ export class RelatoPage implements OnInit {
 
     this.relato.userId = this.afAuth.auth.currentUser.uid;
 
-    if (this.relatoId) {
-      try {
-        await this.relatosService.updateRelato(this.relatoId, this.relato);
+    this.relato.createdAt = new Date().getTime();
 
-        await this.loading.dismiss();
+    this.relato.resolvido = false;
 
-        this.navCtrl.navigateBack('/home');
-      } catch (error) {
-        this.presentToast("Erro ao tentar atualizar produto");
-        this.loading.dismiss();
-      }
-    } else {
-      // this.relato.createdAt = new Date().toJSON().slice(0, 10).replace(/-/g, '/');
-      this.relato.createdAt = new Date().getTime();
-
-      try {
-        await this.relatosService.addRelato(this.relato);
-        this.navCtrl.navigateBack('tabs');
-      } catch (error) {
-        console.log(error);
-      } finally {
-        this.loading.dismiss();
-      }
+    try {
+      await this.relatosService.addRelato(this.relato);
+      this.navCtrl.navigateBack('tabs');
+    } catch (error) {
+      console.log(error);
+    } finally {
+      this.loading.dismiss();
     }
 
   }

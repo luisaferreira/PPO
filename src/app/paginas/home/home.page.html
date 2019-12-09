@@ -23,7 +23,7 @@
 
   <ion-list>
     <ion-item-sliding *ngFor="let relato of relatos">
-      <ion-item>
+      <ion-item button [routerLink]="['/editar-relato', relato.id]">
         <ion-avatar slot="start">
           <ion-skeleton-text animated></ion-skeleton-text>
         </ion-avatar>
@@ -33,13 +33,6 @@
           <p>{{ relato.createdAt | date: 'short' }}</p>
         </ion-label>
       </ion-item>
-
-      <ion-item-options side="end">
-        <ion-item-option color="medium" [routerLink]="['/editar-relato', relato.id]"> 
-          <ion-icon slot="top" name="create"></ion-icon>
-          Visualizar
-        </ion-item-option>
-      </ion-item-options>
     </ion-item-sliding>
   </ion-list>
 
