@@ -17,6 +17,7 @@ export class CadastroPage implements OnInit {
   public usuario: Usuario = {};
   private loading: any;
   private estado = '';
+  private year: number = new Date().getFullYear();
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -31,12 +32,19 @@ export class CadastroPage implements OnInit {
   }
 
   async cadastrar() {
-    // await this.presentLoading();
+    await this.presentLoading();
 
     if (this.usuario.senha != this.usuario.confsenha) {
       this.presentToast("The passwords doesn't match!");
       return console.error("As senhas não são iguais");
     }
+
+    var age = this.year - this.usuario.anoNasc;
+
+     if (age < 16) {
+       this.presentToast("Menor de 16");
+       return console.error("menor de 16");
+     }
 
     try {
       const nvUsuario = await this.afAuth.auth.createUserWithEmailAndPassword(this.usuario.email, this.usuario.senha);
@@ -46,15 +54,12 @@ export class CadastroPage implements OnInit {
       delete nvUsuarioObject.senha; //insenta a senha de ser enviada ao banco 
       delete nvUsuarioObject.confsenha; //insenta a confirmação de senha de ser enviada ao banco 
 
-
       await this.afStore.collection('Usuários').doc(nvUsuario.user.uid).set(nvUsuarioObject) //envia para o banco todos os dados ao invés de apenas e-mail e senha
       this.router.navigate(['/tabs']);
     } catch (error) {
-
-      console.dir(error);
       this.presentToast(error.message);
     } finally {
-      // this.loading.dismiss();
+      this.loading.dismiss();
     }
   }
 

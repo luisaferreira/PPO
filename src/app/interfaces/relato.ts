@@ -1,11 +1,14 @@
+import { LatLng } from '@ionic-native/google-maps';
+
 export interface Relato {
     id?: string;
     ocorrido?: string;
     descricao?: string;
     createdAt?: number;
     userId?: string;
-    lat?: number;
-    lng?: number;
-    local?: string;
+    latLng?:  LatLng;
+    endereco?: string;
     resolvido?: boolean;
+    numLike?: number;
+    usersLike?: Array<string>;
 }

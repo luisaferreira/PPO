@@ -2,32 +2,74 @@
   <ion-toolbar>
     <ion-title>perfil</ion-title>
     <ion-button slot="end" routerLink="/configuracoes">
-        <ion-icon slot="icon-only" name="settings"></ion-icon>
-      </ion-button>
+      <ion-icon slot="icon-only" name="settings"></ion-icon>
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
   <div class="ion-padding">
-      <ion-item lines="none">
-          <ion-avatar slot="start">
-            <ion-skeleton-text></ion-skeleton-text>
-          </ion-avatar>
-          <ion-label>
-            <h2>Valdomiro, 18</h2>
-            <p>Garanhuns-PE</p>
-          </ion-label>
-        </ion-item>
+    <ion-item lines="none">
+      <ion-avatar slot="start" id="avatar-perfil">
+        <ion-skeleton-text></ion-skeleton-text>
+      </ion-avatar>
+      <ion-label>
+        <h2> Nome </h2>
+        <p>Garanhuns-PE</p>
+      </ion-label>
+    </ion-item>
   </div>
 
-  <ion-segment (ionChange)="segmentChanged($event)">
-    <ion-segment-button value="friends" checked>
-      <ion-label>Pendentes</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="enemies">
-      <ion-label>Resolvidos</ion-label>
-    </ion-segment-button>
-  </ion-segment>
+  <div>
+    <ion-segment (ionChange)="segmentChanged($event)" value="pendentes">
+      <ion-segment-button value="pendentes">
+        <ion-label>Pendentes</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="resolvidos">
+        <ion-label>Resolvidos</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <ion-slides>
+    <ion-slide>
+
+
+      <p>sfkjhfhjkfhsjk</p>
+        <ion-list>
+          <ion-item>
+            <ion-avatar slot="start"></ion-avatar>
+          </ion-item>
+        </ion-list>
+        <!-- <ion-list>
+          <ion-item *ngFor="let item of [0, 1, 2]">
+            <ion-avatar slot="start">
+              <ion-skeleton-text animated></ion-skeleton-text>
+            </ion-avatar>
+            <ion-label>
+              <h3>
+                <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+              </h3>
+              <p>
+                <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
+              </p>
+              <p>
+                <ion-skeleton-text animated style="width: 30%;"></ion-skeleton-text>
+              </p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+       -->
+
+    </ion-slide>
+
+    <ion-slide>
+      <div class="slide-inner ion-padding">
+        <ion-avatar slot="start"></ion-avatar>
+
+      </div>
+    </ion-slide>
+  </ion-slides>
 
 </ion-content>

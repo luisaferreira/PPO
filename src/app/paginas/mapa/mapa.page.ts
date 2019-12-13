@@ -2,6 +2,9 @@ import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
 import { Platform, LoadingController } from '@ionic/angular';
 import { Environment, GoogleMap, GoogleMaps, GoogleMapOptions, GoogleMapsEvent, MyLocation, GoogleMapsAnimation, Geocoder, Marker } from '@ionic-native/google-maps';
 import { Router } from '@angular/router';
+import { RelatosService } from 'src/app/services/relatos.service';
+import { Relato } from 'src/app/interfaces/relato';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 declare var google: any;
 
@@ -19,12 +22,15 @@ export class MapaPage implements OnInit {
   private googleAutocomplete = new google.maps.places.AutocompleteService();
   public PesResult = new Array<any>();
   public local: any;
+  private relato: Relato = {};
 
   constructor(
     private platform: Platform, //usado para poder acessar a largura e altura do dispositivo
     private loadingCtrl: LoadingController,
     private ngZone: NgZone,
-    private router: Router 
+    private router: Router,
+    private relatosService: RelatosService,
+    private afAuth: AngularFireAuth,
   ) { }
 
   ngOnInit() {
@@ -81,16 +87,35 @@ export class MapaPage implements OnInit {
       this.pesquisa = '';
       this.local = item;
       console.log(item);
+
       //pegando a latitude e a longitude dos pontos do mapa
-       const info: any = await Geocoder.geocode({address: this.local.description});
+      const info: any = await Geocoder.geocode({ address: this.local.description });
 
-       let marcadorLocal: Marker = this.mapa.addMarkerSync({
-         icon: '#000',
-         animation: GoogleMapsAnimation.BOUNCE,
-         position: info[0].position
-       });
+      //adicionando marcador
+      let marcadorLocal: Marker = this.mapa.addMarkerSync({
+        icon: '#000',
+        animation: GoogleMapsAnimation.BOUNCE,
+        position: info[0].position
+      });
 
-       this.router.navigate(['relato']);
+      await this.mapa.moveCamera({
+        target: info[0].position,
+        zoom: 18
+      });
+
+      //salvando dados do mapa
+      this.relato.createdAt = new Date().getTime();
+      this.relato.descricao = "";
+      this.relato.endereco = this.local.description;
+      this.relato.numLike = 0;
+      this.relato.latLng = info[0].position;
+      this.relato.ocorrido = "";
+      this.relato.resolvido = false;
+      this.relato.userId = this.afAuth.auth.currentUser.uid;
+      this.relato.usersLike = [];
+
+      await this.relatosService.addRelato(this.relato);
+      this.router.navigate(['relatos'])
 
     } catch (error) {
       console.error(error);
@@ -103,20 +128,20 @@ export class MapaPage implements OnInit {
     this.googleAutocomplete.getPlacePredictions({
       input: this.pesquisa
     }, predictions => {
-      this.ngZone.run(() =>{
+      this.ngZone.run(() => {
         this.PesResult = predictions;
       });
     });
   }
 
-  async voltar(){
-    try {
-      await this.mapa.clear();
-      this.local = null;
-    } catch(error) {
-      console.error(error);
-    }
-  }
+  // async voltar(){
+  //   try {
+  //     await this.mapa.clear();
+  //     this.local = null;
+  //   } catch(error) {
+  //     console.error(error);
+  //   }
+  // }
 
   async presentLoading() {
     this.loading = await this.loadingCtrl.create({

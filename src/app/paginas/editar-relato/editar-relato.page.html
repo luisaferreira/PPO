@@ -24,15 +24,28 @@
       <ion-label>
         <h2> {{ relato.ocorrido }} </h2>
         <p>
-           {{ relato.descricao }} 
+          {{ relato.descricao }}
         </p>
       </ion-label>
     </ion-item>
-
-    <ion-item>
-      <p>Resolvido?</p>
-      <ion-icon slot=""></ion-icon>
+    <ion-item class="ion-margin">
+      <h4> {{ relato.endereco }} </h4>
     </ion-item>
+
+    <ion-item lines="none" *ngIf="relato.resolvido == false">
+      <h6>Esta denúncia é verídica?</h6>
+      <p> {{ relato.numLike }} </p>
+      <ion-button (click)="like()" size="small" >
+        <ion-icon slot="icon-only" name="checkmark-circle-outline"></ion-icon>
+      </ion-button>
+    </ion-item>
+
+
+    <div id="opcoes" class="ion-padding" *ngIf="relato.resolvido == true">
+      <p>Resolvido</p>
+      <ion-icon name="checkbox-outline"></ion-icon>
+    </div>
+
   </div>
 
   <!-- USUÁRIO QUE POSTOU -->
@@ -44,10 +57,10 @@
         <p> {{ relato.createdAt | date: 'short' }} </p>
       </ion-label>
       <ion-label>
-          Resolvido?
+        Resolvido?
         <ion-toggle [(ngModel)]="relato.resolvido"></ion-toggle>
-        </ion-label>
-        
+      </ion-label>
+
     </ion-item>
 
     <ion-list>
@@ -79,7 +92,7 @@
         </ion-item>
 
         <ion-item>
-          <ion-label>Rua má asfaltada</ion-label>
+          <ion-label>Rua mal asfaltada</ion-label>
           <ion-radio slot="start" value="Rua má asfaltada"></ion-radio>
         </ion-item>
 

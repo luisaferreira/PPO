@@ -1,0 +1,83 @@
+<ion-content>
+    <div>
+
+        <ion-item class="ion-margin" lines="none">
+          <ion-label slot="start">
+            Relatado em:
+            <p> {{ relato.createdAt | date: 'short' }} </p>
+          </ion-label>
+          <ion-label>
+            Resolvido?
+            <ion-toggle [(ngModel)]="relato.resolvido"></ion-toggle>
+          </ion-label>
+    
+        </ion-item>
+    
+        <ion-list>
+          <ion-radio-group [(ngModel)]="relato.ocorrido">
+    
+            <ion-item>
+              <ion-label>Falta de água</ion-label>
+              <ion-radio slot="start" value="Falta de água" checked></ion-radio>
+            </ion-item>
+    
+            <ion-item>
+              <ion-label>Cano estourado</ion-label>
+              <ion-radio slot="start" value="Cano estourado"></ion-radio>
+            </ion-item>
+    
+            <ion-item>
+              <ion-label>Esgoto à céu aberto</ion-label>
+              <ion-radio slot="start" value="Esgoto à céu aberto"></ion-radio>
+            </ion-item>
+    
+            <ion-item>
+              <ion-label>Má iluminação pública</ion-label>
+              <ion-radio slot="start" value="Má iluminação"></ion-radio>
+            </ion-item>
+    
+            <ion-item>
+              <ion-label>Não há iluminação pública</ion-label>
+              <ion-radio slot="start" value="Não há iluminação"></ion-radio>
+            </ion-item>
+    
+            <ion-item>
+              <ion-label>Rua mal asfaltada</ion-label>
+              <ion-radio slot="start" value="Rua má asfaltada"></ion-radio>
+            </ion-item>
+    
+            <ion-item>
+              <ion-label>Rua esburacada</ion-label>
+              <ion-radio slot="start" value="Rua esburacada"></ion-radio>
+            </ion-item>
+    
+            <ion-item>
+              <ion-label>Rua sem asfalto</ion-label>
+              <ion-radio slot="start" value="Rua sem asfalto"></ion-radio>
+            </ion-item>
+    
+          </ion-radio-group>
+        </ion-list>
+    
+        <ion-item lines="none">
+          <ion-textarea rows="6" cols="20" placeholder="Descreva o problema." [(ngModel)]="relato.descricao"></ion-textarea>
+        </ion-item>
+      </div>
+    
+    </ion-content>
+    
+    
+    <ion-footer>
+      <ion-toolbar>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-button expand="block" color="dark" shape="round" (click)="updateRelato()">Atualizar denúncia</ion-button>
+            </ion-col>
+            <ion-col>
+              <ion-button expand="block" color="danger" shape="round" (click)="deleteRelato()">Deletar</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-toolbar>
+    </ion-footer>

@@ -7,11 +7,11 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-editar-relato',
-  templateUrl: './editar-relato.page.html',
-  styleUrls: ['./editar-relato.page.scss'],
+  selector: 'app-relatos',
+  templateUrl: './relatos.page.html',
+  styleUrls: ['./relatos.page.scss'],
 })
-export class EditarRelatoPage implements OnInit {
+export class RelatosPage implements OnInit {
 
   private relato: Relato = {};
   private relatoId: string = null;
@@ -62,6 +62,8 @@ export class EditarRelatoPage implements OnInit {
       
     } catch (error) {
       this.presentToast("Erro ao atualizar o relato");
+      console.log(error);
+      
     } finally {
       this.loading.dismiss();
     }

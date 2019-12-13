@@ -5,6 +5,7 @@ import { RelatosService } from 'src/app/services/relatos.service';
 import { NavController, LoadingController, ToastController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { AngularFirestoreCollection } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-relato',
@@ -13,10 +14,11 @@ import { Subscription } from 'rxjs';
 })
 export class RelatoPage implements OnInit {
 
-  private relato: Relato = {};
-  private relatoId: string = null;
-  private relatoSubscription: Subscription
+  private relato: Relato = {}
   private loading: any;
+  private relatoId: string = null;
+  private relatoSubscription: Subscription;
+  private relatosCollection: AngularFirestoreCollection<Relato>;
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -26,12 +28,14 @@ export class RelatoPage implements OnInit {
     private loadingCtrl: LoadingController,
     private toastCtrl: ToastController
   ) {
-    this.relatoId = this.activatedRoute.snapshot.params['createdAt'];
+    this.relatoId = this.activatedRoute.snapshot.params['id'];
 
     if (this.relatoId) this.loadRelato();
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+  }
+
 
   ngOnDestroy() {
     if (this.relatoSubscription) this.relatoSubscription.unsubscribe();
@@ -43,22 +47,21 @@ export class RelatoPage implements OnInit {
     });
   }
 
-  async denuncia() {
+  async updateRelato() {
     await this.presentLoading();
 
     this.relato.userId = this.afAuth.auth.currentUser.uid;
 
-    this.relato.createdAt = new Date().getTime();
+    if (this.relatoId) {
 
-    this.relato.resolvido = false;
-
-    try {
-      await this.relatosService.addRelato(this.relato);
-      this.navCtrl.navigateBack('tabs');
-    } catch (error) {
-      console.log(error);
-    } finally {
-      this.loading.dismiss();
+      try {
+        await this.relatosService.updateRelato(this.relatoId, this.relato);
+        await this.loading.dismiss();
+      } catch (error) {
+        console.log(error);
+        this.presentToast("Erro ao atualizar produto!");
+        this.loading.dismiss();
+      }
     }
 
   }
@@ -77,4 +80,5 @@ export class RelatoPage implements OnInit {
     });
     return toast.present();
   }
+
 }
