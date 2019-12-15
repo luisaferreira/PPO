@@ -1,10 +1,11 @@
 import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
 import { Platform, LoadingController } from '@ionic/angular';
 import { Environment, GoogleMap, GoogleMaps, GoogleMapOptions, GoogleMapsEvent, MyLocation, GoogleMapsAnimation, Geocoder, Marker } from '@ionic-native/google-maps';
-import { Router } from '@angular/router';
+import { Router, NavigationExtras } from '@angular/router';
 import { RelatosService } from 'src/app/services/relatos.service';
 import { Relato } from 'src/app/interfaces/relato';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { RelatoPage } from '../relato/relato.page';
 
 declare var google: any;
 
@@ -14,6 +15,9 @@ declare var google: any;
   styleUrls: ['mapa.page.scss'],
 })
 export class MapaPage implements OnInit {
+
+
+
   @ViewChild('map', { static: true }) mapElement: any;  //faz referência ao identificador da div
 
   private loading: any;
@@ -23,6 +27,7 @@ export class MapaPage implements OnInit {
   public PesResult = new Array<any>();
   public local: any;
   private relato: Relato = {};
+  private infoLocal;
 
   constructor(
     private platform: Platform, //usado para poder acessar a largura e altura do dispositivo
@@ -30,7 +35,7 @@ export class MapaPage implements OnInit {
     private ngZone: NgZone,
     private router: Router,
     private relatosService: RelatosService,
-    private afAuth: AngularFireAuth,
+    private afAuth: AngularFireAuth
   ) { }
 
   ngOnInit() {
@@ -102,20 +107,18 @@ export class MapaPage implements OnInit {
         target: info[0].position,
         zoom: 18
       });
-
-      //salvando dados do mapa
-      this.relato.createdAt = new Date().getTime();
-      this.relato.descricao = "";
-      this.relato.endereco = this.local.description;
-      this.relato.numLike = 0;
-      this.relato.latLng = info[0].position;
-      this.relato.ocorrido = "";
-      this.relato.resolvido = false;
-      this.relato.userId = this.afAuth.auth.currentUser.uid;
-      this.relato.usersLike = [];
-
-      await this.relatosService.addRelato(this.relato);
-      this.router.navigate(['relatos'])
+      
+      this.infoLocal = {
+        endereco: this.local.description,
+        latLng: info[0].position
+      } 
+      
+      let navigationExtras: NavigationExtras = {
+        state: {
+          infoLocal: this.infoLocal
+        }
+      };
+      this.router.navigate(['relato'], navigationExtras);
 
     } catch (error) {
       console.error(error);

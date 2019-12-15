@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Relato } from 'src/app/interfaces/relato';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { RelatosService } from 'src/app/services/relatos.service';
-import { NavController, LoadingController, ToastController } from '@ionic/angular';
-import { ActivatedRoute } from '@angular/router';
+import { LoadingController, ToastController } from '@ionic/angular';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { AngularFirestoreCollection } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-relato',
@@ -18,19 +17,24 @@ export class RelatoPage implements OnInit {
   private loading: any;
   private relatoId: string = null;
   private relatoSubscription: Subscription;
-  private relatosCollection: AngularFirestoreCollection<Relato>;
+  private data: any;
 
   constructor(
     private afAuth: AngularFireAuth,
     private relatosService: RelatosService,
-    private navCtrl: NavController,
     private activatedRoute: ActivatedRoute,
     private loadingCtrl: LoadingController,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private router: Router
   ) {
-    this.relatoId = this.activatedRoute.snapshot.params['id'];
+    this.activatedRoute.queryParams.subscribe(params => {
+      if (this.router.getCurrentNavigation().extras.state) {
+        this.data = this.router.getCurrentNavigation().extras.state.infoLocal;
+      }
+    });
 
-    if (this.relatoId) this.loadRelato();
+     this.relatoId = this.activatedRoute.snapshot.params['id'];
+     if (this.relatoId) this.loadRelato();
   }
 
   ngOnInit() {
@@ -47,22 +51,27 @@ export class RelatoPage implements OnInit {
     });
   }
 
-  async updateRelato() {
+  async addRelato(relato) {
     await this.presentLoading();
 
+    this.relato.createdAt = new Date().getTime();
+    this.relato.endereco = this.data.endereco;
+    this.relato.numLike = 0;
+    this.relato.latLng = this.data.latLng;
+    this.relato.resolvido = false;
     this.relato.userId = this.afAuth.auth.currentUser.uid;
+    this.relato.usersLike = [];
 
-    if (this.relatoId) {
-
-      try {
-        await this.relatosService.updateRelato(this.relatoId, this.relato);
-        await this.loading.dismiss();
-      } catch (error) {
-        console.log(error);
-        this.presentToast("Erro ao atualizar produto!");
-        this.loading.dismiss();
-      }
+    try {
+      await this.relatosService.addRelato(this.relato);
+      this.router.navigate(['tabs/home']);
+    } catch (error) {
+      console.log(error);
+      this.presentToast("Erro ao registrar denúncia!")
+    } finally {
+      this.loading.dismiss();
     }
+    
 
   }
 

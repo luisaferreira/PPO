@@ -1,7 +1,7 @@
 
 <ion-content>
 
-    <div #map (click)="presentLoading()">
+    <div #map >
       <ion-searchbar [(ngModel)]="pesquisa" (ionChange)="pesquisaChanged()" mode="ios" cancelButtonText="Cancel" placeholder="Onde há problemas?" ></ion-searchbar>
 
       <ion-list class="ion-margin-horizontal" [hidden]="!pesquisa.length">
