@@ -74,7 +74,6 @@ export class EditarRelatoPage implements OnInit {
       await this.relatosService.deleteRelato(this.relatoId);
     } catch (error) {
       this.presentToast("Erro ao excluir o relato")
-      console.log(error);
     } finally {
       this.loading.dismiss();
     }

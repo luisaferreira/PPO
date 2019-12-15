@@ -6,6 +6,7 @@ import { RelatosService } from 'src/app/services/relatos.service';
 import { Relato } from 'src/app/interfaces/relato';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { RelatoPage } from '../relato/relato.page';
+import { Subscription } from 'rxjs';
 
 declare var google: any;
 
@@ -16,8 +17,6 @@ declare var google: any;
 })
 export class MapaPage implements OnInit {
 
-
-
   @ViewChild('map', { static: true }) mapElement: any;  //faz referência ao identificador da div
 
   private loading: any;
@@ -26,8 +25,9 @@ export class MapaPage implements OnInit {
   private googleAutocomplete = new google.maps.places.AutocompleteService();
   public PesResult = new Array<any>();
   public local: any;
-  private relato: Relato = {};
   private infoLocal;
+  private relatos = new Array<Relato>();
+  private relatosSubscription: Subscription;
 
   constructor(
     private platform: Platform, //usado para poder acessar a largura e altura do dispositivo
@@ -36,7 +36,11 @@ export class MapaPage implements OnInit {
     private router: Router,
     private relatosService: RelatosService,
     private afAuth: AngularFireAuth
-  ) { }
+  ) {
+    this.relatosSubscription = this.relatosService.getRelatos().subscribe(data => {
+      this.relatos = data;
+    });
+  }
 
   ngOnInit() {
     this.mapElement = this.mapElement.nativeElement;
@@ -47,6 +51,10 @@ export class MapaPage implements OnInit {
 
     //chamando o mapa
     this.loadMap();
+  }
+
+  ngOnDestroy() {
+    this.relatosSubscription.unsubscribe();
   }
 
   async loadMap() {
@@ -79,11 +87,23 @@ export class MapaPage implements OnInit {
         zoom: 18
       });
 
+      for (let i = 0; i < this.relatos.length; i++) {
+        if (this.relatos[i].resolvido == false) {
+          let marcadorLocal: Marker = this.mapa.addMarkerSync({
+            icon: '#000',
+            animation: GoogleMapsAnimation.BOUNCE,
+            position: this.relatos[i].latLng
+          });
+        }
+      }
+
     } catch (error) {
       console.error(error);
+      console.log(error);
     } finally {
       this.loading.dismiss();
     }
+
 
   }
 
@@ -107,12 +127,12 @@ export class MapaPage implements OnInit {
         target: info[0].position,
         zoom: 18
       });
-      
+
       this.infoLocal = {
         endereco: this.local.description,
         latLng: info[0].position
-      } 
-      
+      }
+
       let navigationExtras: NavigationExtras = {
         state: {
           infoLocal: this.infoLocal
@@ -135,6 +155,10 @@ export class MapaPage implements OnInit {
         this.PesResult = predictions;
       });
     });
+  }
+
+  getLgnLat() {
+
   }
 
   // async voltar(){

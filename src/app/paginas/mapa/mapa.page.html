@@ -1,14 +1,19 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-searchbar [(ngModel)]="pesquisa" (ionChange)="pesquisaChanged()" mode="ios" cancelButtonText="Cancel" placeholder="Onde há problemas?" ></ion-searchbar>
+    </ion-toolbar>
+</ion-header>
 
 <ion-content>
 
-    <div #map >
-      <ion-searchbar [(ngModel)]="pesquisa" (ionChange)="pesquisaChanged()" mode="ios" cancelButtonText="Cancel" placeholder="Onde há problemas?" ></ion-searchbar>
+  <ion-list class="ion-margin-horizontal" [hidden]="!pesquisa.length">
+    <ion-item (click)="addMarker(result)" *ngFor="let result of PesResult">
+      {{ result.description }}
+    </ion-item>
+  </ion-list>
 
-      <ion-list class="ion-margin-horizontal" [hidden]="!pesquisa.length">
-        <ion-item (click)="addMarker(result)" *ngFor="let result of PesResult">
-          {{ result.description }}
-        </ion-item>
-      </ion-list>
+    <div #map (click)="presentLoading()">
+      
     </div>
 
   

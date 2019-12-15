@@ -51,7 +51,7 @@ export class RelatoPage implements OnInit {
     });
   }
 
-  async addRelato(relato) {
+  async addRelato(relato: Relato) {
     await this.presentLoading();
 
     this.relato.createdAt = new Date().getTime();
