@@ -19,9 +19,105 @@
         <p>Garanhuns-PE</p>
       </ion-label>
     </ion-item>
+    <ion-segment class="ion-padding-top" (ionChange)="segmentChanged($event)" value="pendentes">
+      <ion-segment-button value="pendentes">
+        <ion-label>Pendentes</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="resolvidos">
+        <ion-label>Resolvidos</ion-label>
+      </ion-segment-button>
+    </ion-segment>
   </div>
 
-  <div>
+  <ion-content class="swiper-no-swiping">
+
+    <ion-slides>
+      <!-- PENDENTES -->
+      <ion-slide>
+        <div class="slide-inner">
+
+          <ion-list *ngIf="!relatos.length">
+            <ion-item *ngFor="let item of [0, 1, 2]">
+              <ion-label>
+                <h3>
+                  <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+                </h3>
+                <p>
+                  <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
+                </p>
+                <p>
+                  <ion-skeleton-text animated style="width: 30%;"></ion-skeleton-text>
+                </p>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+
+          <ion-list>
+            <ion-item-sliding *ngFor="let relato of relatos">
+              <ion-item button [routerLink]="['/editar-relato', relato.id]">
+                <ion-avatar slot="start">
+                  <ion-skeleton-text animated></ion-skeleton-text>
+                </ion-avatar>
+                <ion-label>
+                  {{ relato.ocorrido }}
+                  <p>{{ relato.descricao }}</p>
+                  <p> {{ relato.endereco }} </p>
+                </ion-label>
+                <p slot="end">{{ relato.createdAt | date: 'short' }}</p>
+              </ion-item>
+            </ion-item-sliding>
+          </ion-list>
+
+
+        </div>
+      </ion-slide>
+
+      <!-- RESOLVIDOS -->
+      <ion-slide>
+        <div class="slide-inner ion-padding">
+
+          <ion-list *ngIf="!relatos.length">
+            <ion-item *ngFor="let item of [0, 1, 2]">
+              <ion-label>
+                <h3>
+                  <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+                </h3>
+                <p>
+                  <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
+                </p>
+                <p>
+                  <ion-skeleton-text animated style="width: 30%;"></ion-skeleton-text>
+                </p>
+              </ion-label>
+            </ion-item>
+
+          </ion-list>
+          <ion-list>
+            <ion-item-sliding *ngFor="let relato of relatos">
+              <ion-item button [routerLink]="['/editar-relato', relato.id]">
+                <ion-avatar slot="start">
+                  <ion-skeleton-text animated></ion-skeleton-text>
+                </ion-avatar>
+                <ion-label>
+                  {{ relato.ocorrido }}
+                  <p>{{ relato.descricao }}</p>
+                  <p>{{ relato.createdAt | date: 'short' }}</p>
+                </ion-label>
+              </ion-item>
+            </ion-item-sliding>
+          </ion-list>
+
+        </div>
+      </ion-slide>
+    </ion-slides>
+
+
+
+
+
+
+
+    <!-- <div>
     <ion-segment (ionChange)="segmentChanged($event)" value="pendentes">
       <ion-segment-button value="pendentes">
         <ion-label>Pendentes</ion-label>
@@ -69,6 +165,6 @@
             </ion-item>
           </ion-list>
     </ion-slide>
-  </ion-slides>
+  </ion-slides> -->
 
-</ion-content>
+  </ion-content>

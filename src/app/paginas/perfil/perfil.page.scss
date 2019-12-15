@@ -18,3 +18,19 @@ ion-segment-button {
     --color: #000;
     --color-checked: #fff;
 }
+
+ion-slides {
+    // height: 100%;
+
+    .slide-inner {
+        width: 100%;
+        color: #fff;
+        background-color: none;
+
+        ion-item {
+            width: 100%;
+            --background: none;
+            --border-radius: 10px;
+        }
+    }
+}
