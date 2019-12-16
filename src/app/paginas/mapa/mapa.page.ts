@@ -38,7 +38,7 @@ export class MapaPage implements OnInit {
     private afAuth: AngularFireAuth
   ) {
     this.relatosSubscription = this.relatosService.getRelatos().subscribe(data => {
-      this.relatos = data;
+      this.relatos = data.filter(rel => rel.resolvido === false)
     });
   }
 
@@ -88,13 +88,11 @@ export class MapaPage implements OnInit {
       });
 
       for (let i = 0; i < this.relatos.length; i++) {
-        if (this.relatos[i].resolvido == false) {
           let marcadorLocal: Marker = this.mapa.addMarkerSync({
             icon: '#000',
             animation: GoogleMapsAnimation.BOUNCE,
             position: this.relatos[i].latLng
           });
-        }
       }
 
     } catch (error) {
@@ -145,6 +143,14 @@ export class MapaPage implements OnInit {
     }
   }
 
+  async addMarkerClick() {
+    this.mapa.on(GoogleMapsEvent.MAP_CLICK).subscribe(
+      (data) => {
+alert("CLick MAP")        
+      }
+    )
+  }
+
   pesquisaChanged() {
     if (!this.pesquisa.trim().length) return; //o trim retira os espaços em branco do inicio e final
 
@@ -155,10 +161,6 @@ export class MapaPage implements OnInit {
         this.PesResult = predictions;
       });
     });
-  }
-
-  getLgnLat() {
-
   }
 
   // async voltar(){

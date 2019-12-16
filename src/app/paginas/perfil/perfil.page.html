@@ -36,7 +36,7 @@
       <ion-slide>
         <div class="slide-inner">
 
-          <ion-list *ngIf="!relatos.length">
+          <ion-list *ngIf="!relatosPendentes.length">
             <ion-item *ngFor="let item of [0, 1, 2]">
               <ion-label>
                 <h3>
@@ -53,7 +53,7 @@
           </ion-list>
 
           <ion-list>
-            <ion-item-sliding *ngFor="let relato of relatos">
+            <ion-item-sliding *ngFor="let relato of relatosPendentes">
               <ion-item button [routerLink]="['/editar-relato', relato.id]">
                 <ion-avatar slot="start">
                   <ion-skeleton-text animated></ion-skeleton-text>
@@ -74,9 +74,9 @@
 
       <!-- RESOLVIDOS -->
       <ion-slide>
-        <div class="slide-inner ion-padding">
+        <div class="slide-inner">
 
-          <ion-list *ngIf="!relatos.length">
+          <ion-list *ngIf="!relatosResolvidos.length">
             <ion-item *ngFor="let item of [0, 1, 2]">
               <ion-label>
                 <h3>
@@ -93,7 +93,7 @@
 
           </ion-list>
           <ion-list>
-            <ion-item-sliding *ngFor="let relato of relatos">
+            <ion-item-sliding *ngFor="let relato of relatosResolvidos">
               <ion-item button [routerLink]="['/editar-relato', relato.id]">
                 <ion-avatar slot="start">
                   <ion-skeleton-text animated></ion-skeleton-text>
@@ -110,61 +110,5 @@
         </div>
       </ion-slide>
     </ion-slides>
-
-
-
-
-
-
-
-    <!-- <div>
-    <ion-segment (ionChange)="segmentChanged($event)" value="pendentes">
-      <ion-segment-button value="pendentes">
-        <ion-label>Pendentes</ion-label>
-      </ion-segment-button>
-      <ion-segment-button value="resolvidos">
-        <ion-label>Resolvidos</ion-label>
-      </ion-segment-button>
-    </ion-segment>
-  </div>
-
-  <ion-slides>
-    <ion-slide>
-      <ion-list>
-          <ion-item *ngFor="let item of [0, 1, 2]">
-            <ion-label>
-              <h3>
-                <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
-              </h3>
-              <p>
-                <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
-              </p>
-              <p>
-                <ion-skeleton-text animated style="width: 30%;"></ion-skeleton-text>
-              </p>
-            </ion-label>
-          </ion-item>
-        </ion-list>
-
-    </ion-slide>
-
-    <ion-slide>
-        <ion-list>
-            <ion-item *ngFor="let item of [0, 1, 2]">
-              <ion-label>
-                <h3>
-                  <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
-                </h3>
-                <p>
-                  <ion-skeleton-text animated style="width: 80%;"></ion-skeleton-text>
-                </p>
-                <p>
-                  <ion-skeleton-text animated style="width: 30%;"></ion-skeleton-text>
-                </p>
-              </ion-label>
-            </ion-item>
-          </ion-list>
-    </ion-slide>
-  </ion-slides> -->
 
   </ion-content>

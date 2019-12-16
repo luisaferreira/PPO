@@ -17,7 +17,7 @@ export class HomePage implements OnInit{
   private relatoId: string = null;
   private loading: any;
   private usuarioID: string = this.afAuth.auth.currentUser.uid;
- 
+
   constructor(
     private relatosService: RelatosService,
     private afAuth: AngularFireAuth,
@@ -25,11 +25,15 @@ export class HomePage implements OnInit{
     private toastCtrl: ToastController
   ) {
     this.relatosSubscription = this.relatosService.getRelatos().subscribe(data => {
-      this.relatos = data;
+      this.relatos = data.filter(rel => rel.resolvido === false );
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.relatosSubscription = this.relatosService.getRelatos().subscribe(data => {
+      this.relatos = data.filter(rel => rel.resolvido === false ).sort((a,b) => a.createdAt > b.createdAt ? -1 : 1);
+    });
+  }
 
   ngOnDestroy() {
     this.relatosSubscription.unsubscribe();
@@ -62,4 +66,5 @@ export class HomePage implements OnInit{
     });
     return toast.present();
   }
+
 }
