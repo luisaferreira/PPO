@@ -55,9 +55,6 @@
           <ion-list>
             <ion-item-sliding *ngFor="let relato of relatosPendentes">
               <ion-item button [routerLink]="['/editar-relato', relato.id]">
-                <ion-avatar slot="start">
-                  <ion-skeleton-text animated></ion-skeleton-text>
-                </ion-avatar>
                 <ion-label>
                   {{ relato.ocorrido }}
                   <p>{{ relato.descricao }}</p>
@@ -95,9 +92,6 @@
           <ion-list>
             <ion-item-sliding *ngFor="let relato of relatosResolvidos">
               <ion-item button [routerLink]="['/editar-relato', relato.id]">
-                <ion-avatar slot="start">
-                  <ion-skeleton-text animated></ion-skeleton-text>
-                </ion-avatar>
                 <ion-label>
                   {{ relato.ocorrido }}
                   <p>{{ relato.descricao }}</p>
