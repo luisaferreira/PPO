@@ -7,7 +7,6 @@ export interface Relato {
     createdAt?: number;
     userId?: string;
     latLng?:  LatLng;
-    ll?: ILatLng;
     endereco?: any;
     resolvido?: boolean;
     numLike?: number;

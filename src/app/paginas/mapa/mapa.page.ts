@@ -93,11 +93,10 @@ export class MapaPage implements OnInit {
         let marcadorLocal: Marker = this.mapa.addMarkerSync({
           icon: '#000',
           animation: GoogleMapsAnimation.BOUNCE,
-          position: this.relatos[i].latLng
+          position: this.relatos[i].latLng,
+          title: this.relatos[i].ocorrido
         });
       }
-
-
 
       this.addMarkerClick();
 
@@ -127,6 +126,7 @@ export class MapaPage implements OnInit {
         position: info[0].position
       });
 
+
       await this.mapa.moveCamera({
         target: info[0].position,
         zoom: 18
@@ -136,9 +136,6 @@ export class MapaPage implements OnInit {
         endereco: this.local.description,
         latLng: info[0].position
       }
-
-      console.log();
-      
 
       let navigationExtras: NavigationExtras = {
         state: {
@@ -153,21 +150,26 @@ export class MapaPage implements OnInit {
   }
 
   addMarkerClick() {
-    this.mapa.on(GoogleMapsEvent.MAP_LONG_CLICK).subscribe((params: any[]) => {
-      const latLng: ILatLng = params[0]
+    this.mapa.on(GoogleMapsEvent.MAP_CLICK).subscribe(async (params: any[]) => {
+      let latLng: ILatLng = params[0];
+
       let marker: Marker = this.mapa.addMarkerSync({
         position: latLng,
-        icon: '#000',
-        animation: GoogleMapsAnimation.DROP
+        icon: '#000'
+      });
+
+      await this.mapa.moveCamera({
+        target: latLng,
+        zoom: 18
       });
 
       Geocoder.geocode({
         position: latLng
-      }).then(async(results: GeocoderResult[]) => {
+      }).then(async (results: GeocoderResult[]) => {
         if (results.length == 0) {
-          return null;
+          return null
         }
-        let address: any = [
+        let address = [
           results[0].subLocality || "",
           results[0].subAdminArea || "",
           results[0].postalCode || "",
@@ -176,27 +178,22 @@ export class MapaPage implements OnInit {
         ].join(", ");
 
         console.log(address);
-        
-        marker.setTitle(address)
-        marker.showInfoWindow();
 
         const info: any = await Geocoder.geocode({ address: address });
-
-        info[0].position = latLng
 
         this.infoLocal = {
           endereco: address,
           latLng: info[0].position
         }
-        console.log(latLng);
         
         let navigationExtras: NavigationExtras = {
           state: {
             infoLocal: this.infoLocal
           }
         };
-        this.router.navigate(['relato'], navigationExtras);
-  
+
+        this.router.navigate(['relato'], navigationExtras);      
+
       })
     })
   }
