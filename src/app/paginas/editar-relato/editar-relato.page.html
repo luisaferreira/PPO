@@ -14,7 +14,7 @@
       <ion-avatar slot="start">
         <ion-skeleton-text></ion-skeleton-text>
       </ion-avatar>
-      <ion-label>
+      <ion-label color="light">
         <h2>nome do usuário</h2>
         <p> {{ relato.createdAt | date: 'short' }} </p>
       </ion-label>
@@ -22,24 +22,26 @@
 
     <ion-item lines="none" class="ion-margin">
       <ion-label>
-        <h2> {{ relato.ocorrido }} </h2>
+        <h1> {{ relato.ocorrido }} </h1>
         <p>
           {{ relato.descricao }}
         </p>
       </ion-label>
     </ion-item>
     <ion-item class="ion-margin">
-      <h4> {{ relato.endereco }} </h4>
+      <h6> {{ relato.endereco }} </h6>
     </ion-item>
 
     <ion-item lines="none" *ngIf="relato.resolvido == false">
       <h6>Esta denúncia é verídica?</h6>
-      <p> {{ relato.numLike }} </p>
-      <ion-button (click)="like()" size="small" >
-        <ion-icon slot="icon-only" name="checkmark-circle-outline"></ion-icon>
-      </ion-button>
     </ion-item>
 
+    <ion-item lines = "none" class="nsei">
+      <h4> {{ relato.numLike }} </h4>
+      <ion-button (click)="like()" >
+        <ion-icon slot="icon-only" name="thumbs-up"></ion-icon>
+      </ion-button>
+    </ion-item>
 
     <div id="opcoes" class="ion-padding" *ngIf="relato.resolvido == true">
       <p>Resolvido</p>
@@ -62,7 +64,7 @@
       </ion-label>
 
     </ion-item>
-<!-- 
+    <!-- 
     <ion-list>
       <ion-radio-group [(ngModel)]="relato.ocorrido">
 
