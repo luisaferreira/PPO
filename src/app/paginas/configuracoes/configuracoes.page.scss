@@ -1,3 +1,28 @@
 ion-icon {
-    color: #c0c0c0;
+    color: #ffffff;
+}
+
+ion-toolbar{
+    --background: #002a37;
+}
+
+ion-content {
+    --background: #00303F;
+}
+
+ion-title{
+    color: #ffffff;
+}
+
+ion-item{
+    --background: #00303F;
+    --color: #ffffff;
+}
+
+ion-label{
+    --color: #fff;
+}
+
+ion-back-button{
+    --color: #ffffff;
 }

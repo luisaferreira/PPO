@@ -9,6 +9,12 @@ ion-button{
     --color: #c0c0c0;
 }
 
+#btn{
+    --background: #88bbd6;
+    --color: #ffffff;
+    float: right;
+}
+
 ion-toolbar{
     --background: #002a37;
 }
@@ -35,6 +41,7 @@ nsei{
 
 h1{
     color: #ffffff;
+    margin-left: 15px;
 }
 
 h4{

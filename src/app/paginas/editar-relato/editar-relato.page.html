@@ -59,8 +59,8 @@
         <p> {{ relato.createdAt | date: 'short' }} </p>
       </ion-label>
       <ion-label>
-        <h4>Resolvido?</h4>
         <ion-toggle [(ngModel)]="relato.resolvido"></ion-toggle>
+        <h4 style="float: left;">Resolvido?</h4>
       </ion-label>
 
     </ion-item>
@@ -76,9 +76,9 @@
 
       </ion-radio-group>
     </ion-list> -->
-    <p> {{relato.ocorrido}} </p>
+    <h1> {{relato.ocorrido}} </h1>
     <ion-item lines="none">
-      <ion-textarea rows="6" cols="20" placeholder="Descreva o problema." [(ngModel)]="relato.descricao"></ion-textarea>
+      <ion-textarea rows="6" cols="20" placeholder="Descreva o problema." [(ngModel)]="relato.descricao" color="light"></ion-textarea>
     </ion-item>
   </div>
 
@@ -90,10 +90,10 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-          <ion-button expand="block" color="dark" shape="round" (click)="updateRelato()">Atualizar denúncia</ion-button>
+          <ion-button id="btn" shape="round" (click)="updateRelato()">Atualizar</ion-button>
         </ion-col>
         <ion-col>
-          <ion-button expand="block" color="danger" shape="round" (click)="deleteRelato(relatoId)">Deletar</ion-button>
+          <ion-button color="danger" shape="round" (click)="deleteRelato(relatoId)">Deletar</ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>
