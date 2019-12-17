@@ -50,5 +50,3 @@ export class RelatosService {
     return this.relatosCollection.doc(id).delete();
   }
 }
-
-//function colletcionreference.doc() requires its first argument to be of the type non-empty string, but it was undefined

@@ -6,6 +6,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore'
 import { PickerOptions } from '@ionic/core';
 import { __await } from 'tslib';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-cadastro',
@@ -23,7 +24,8 @@ export class CadastroPage implements OnInit {
     private loadingCtrl: LoadingController,
     private toastCtrl: ToastController,
     public router: Router,
-    private pickerCtrl: PickerController
+    private pickerCtrl: PickerController,
+    private usuarioService: UsuarioService
   ) { }
 
   ngOnInit() {
@@ -32,20 +34,8 @@ export class CadastroPage implements OnInit {
   async cadastrar() {
     await this.presentLoading();
 
-    if (this.usuario.senha != this.usuario.confsenha) {
-      this.presentToast("The passwords doesn't match!");
-      return console.error("As senhas não são iguais");
-    }
-
     try {
-      const nvUsuario = await this.afAuth.auth.createUserWithEmailAndPassword(this.usuario.email, this.usuario.senha);
-      //um "filtro" para os dados que seram enviados ao banco
-      const nvUsuarioObject = Object.assign({}, this.usuario)
-
-      delete nvUsuarioObject.senha; //insenta a senha de ser enviada ao banco 
-      delete nvUsuarioObject.confsenha; //insenta a confirmação de senha de ser enviada ao banco 
-
-      await this.afStore.collection('Usuários').doc(nvUsuario.user.uid).set(nvUsuarioObject) //envia para o banco todos os dados ao invés de apenas e-mail e senha
+      await this.usuarioService.addUsuario(this.usuario)
       this.router.navigate(['/tabs']);
     } catch (error) {
       this.presentToast(error.message);
