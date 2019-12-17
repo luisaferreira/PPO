@@ -62,6 +62,8 @@ export class RelatoPage implements OnInit {
     this.relato.userId = this.afAuth.auth.currentUser.uid;
     this.relato.usersLike = [];
 
+    console.log("latlng de data "+ this.data.latLng);
+    
     try {
       await this.relatosService.addRelato(this.relato);
       this.router.navigate(['tabs/home']);

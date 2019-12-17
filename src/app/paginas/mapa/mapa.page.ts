@@ -1,12 +1,13 @@
 import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
-import { Platform, LoadingController } from '@ionic/angular';
-import { Environment, GoogleMap, GoogleMaps, GoogleMapOptions, GoogleMapsEvent, MyLocation, GoogleMapsAnimation, Geocoder, Marker } from '@ionic-native/google-maps';
+import { Platform, LoadingController, NavController } from '@ionic/angular';
+import { Environment, GoogleMap, GoogleMaps, GoogleMapOptions, GoogleMapsEvent, MyLocation, GoogleMapsAnimation, Geocoder, Marker, LatLng, ILatLng, GeocoderResult } from '@ionic-native/google-maps';
 import { Router, NavigationExtras } from '@angular/router';
 import { RelatosService } from 'src/app/services/relatos.service';
 import { Relato } from 'src/app/interfaces/relato';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { RelatoPage } from '../relato/relato.page';
 import { Subscription } from 'rxjs';
+import { async } from 'q';
 
 declare var google: any;
 
@@ -17,7 +18,7 @@ declare var google: any;
 })
 export class MapaPage implements OnInit {
 
-  @ViewChild('map', { static: true }) mapElement: any;  //faz referência ao identificador da div
+  @ViewChild('map', { static: true }) map: any;  //faz referência ao identificador da div
 
   private loading: any;
   private mapa: GoogleMap;
@@ -25,17 +26,18 @@ export class MapaPage implements OnInit {
   private googleAutocomplete = new google.maps.places.AutocompleteService();
   public PesResult = new Array<any>();
   public local: any;
-  private infoLocal;
+  private infoLocal: { endereco: any; latLng: any; };
   private relatos = new Array<Relato>();
   private relatosSubscription: Subscription;
 
   constructor(
-    private platform: Platform, //usado para poder acessar a largura e altura do dispositivo
+    private plataforma: Platform, //usado para poder acessar a largura e altura do dispositivo
     private loadingCtrl: LoadingController,
     private ngZone: NgZone,
     private router: Router,
     private relatosService: RelatosService,
-    private afAuth: AngularFireAuth
+    private afAuth: AngularFireAuth,
+    public navCtrl: NavController
   ) {
     this.relatosSubscription = this.relatosService.getRelatos().subscribe(data => {
       this.relatos = data.filter(rel => rel.resolvido === false)
@@ -43,11 +45,11 @@ export class MapaPage implements OnInit {
   }
 
   ngOnInit() {
-    this.mapElement = this.mapElement.nativeElement;
+    this.map = this.map.nativeElement;
 
     //setando o tamanho do mapa
-    this.mapElement.style.width = this.platform.width() + 'px';
-    this.mapElement.style.height = this.platform.height() + 'px';
+    this.map.style.width = this.plataforma.width() + 'px';
+    this.map.style.height = this.plataforma.height() + 'px';
 
     //chamando o mapa
     this.loadMap();
@@ -73,7 +75,7 @@ export class MapaPage implements OnInit {
       }
     }
 
-    this.mapa = GoogleMaps.create(this.mapElement, mapOptions);
+    this.mapa = GoogleMaps.create(this.map, mapOptions);
 
     try {
       await this.mapa.one(GoogleMapsEvent.MAP_READY)
@@ -88,12 +90,16 @@ export class MapaPage implements OnInit {
       });
 
       for (let i = 0; i < this.relatos.length; i++) {
-          let marcadorLocal: Marker = this.mapa.addMarkerSync({
-            icon: '#000',
-            animation: GoogleMapsAnimation.BOUNCE,
-            position: this.relatos[i].latLng
-          });
+        let marcadorLocal: Marker = this.mapa.addMarkerSync({
+          icon: '#000',
+          animation: GoogleMapsAnimation.BOUNCE,
+          position: this.relatos[i].latLng
+        });
       }
+
+
+
+      this.addMarkerClick();
 
     } catch (error) {
       console.error(error);
@@ -131,6 +137,9 @@ export class MapaPage implements OnInit {
         latLng: info[0].position
       }
 
+      console.log();
+      
+
       let navigationExtras: NavigationExtras = {
         state: {
           infoLocal: this.infoLocal
@@ -143,12 +152,53 @@ export class MapaPage implements OnInit {
     }
   }
 
-  async addMarkerClick() {
-    this.mapa.on(GoogleMapsEvent.MAP_CLICK).subscribe(
-      (data) => {
-alert("CLick MAP")        
-      }
-    )
+  addMarkerClick() {
+    this.mapa.on(GoogleMapsEvent.MAP_LONG_CLICK).subscribe((params: any[]) => {
+      const latLng: ILatLng = params[0]
+      let marker: Marker = this.mapa.addMarkerSync({
+        position: latLng,
+        icon: '#000',
+        animation: GoogleMapsAnimation.DROP
+      });
+
+      Geocoder.geocode({
+        position: latLng
+      }).then(async(results: GeocoderResult[]) => {
+        if (results.length == 0) {
+          return null;
+        }
+        let address: any = [
+          results[0].subLocality || "",
+          results[0].subAdminArea || "",
+          results[0].postalCode || "",
+          results[0].adminArea || "",
+          results[0].country || "",
+        ].join(", ");
+
+        console.log(address);
+        
+        marker.setTitle(address)
+        marker.showInfoWindow();
+
+        const info: any = await Geocoder.geocode({ address: address });
+
+        info[0].position = latLng
+
+        this.infoLocal = {
+          endereco: address,
+          latLng: info[0].position
+        }
+        console.log(latLng);
+        
+        let navigationExtras: NavigationExtras = {
+          state: {
+            infoLocal: this.infoLocal
+          }
+        };
+        this.router.navigate(['relato'], navigationExtras);
+  
+      })
+    })
   }
 
   pesquisaChanged() {
@@ -156,21 +206,12 @@ alert("CLick MAP")
 
     this.googleAutocomplete.getPlacePredictions({
       input: this.pesquisa
-    }, predictions => {
+    }, (predictions: any[]) => {
       this.ngZone.run(() => {
         this.PesResult = predictions;
       });
     });
   }
-
-  // async voltar(){
-  //   try {
-  //     await this.mapa.clear();
-  //     this.local = null;
-  //   } catch(error) {
-  //     console.error(error);
-  //   }
-  // }
 
   async presentLoading() {
     this.loading = await this.loadingCtrl.create({

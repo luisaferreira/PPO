@@ -1,4 +1,4 @@
-import { LatLng } from '@ionic-native/google-maps';
+import { LatLng, ILatLng } from '@ionic-native/google-maps';
 
 export interface Relato {
     id?: string;
@@ -7,7 +7,8 @@ export interface Relato {
     createdAt?: number;
     userId?: string;
     latLng?:  LatLng;
-    endereco?: string;
+    ll?: ILatLng;
+    endereco?: any;
     resolvido?: boolean;
     numLike?: number;
     usersLike?: Array<string>;
