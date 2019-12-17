@@ -39,7 +39,7 @@ export class PerfilPage implements OnInit {
     });
 
     //recebendo dados do usuário
-    this.usuarioSubscription = this.usuarioService.getUsuario(this.usuarioId).subscribe(data => {
+    this.usuarioSubscription = this.usuarioService.getUsuario(this.afAuth.auth.currentUser.uid).subscribe(data => {
       this.usuario = data;
     })
   }
@@ -83,11 +83,10 @@ export class PerfilPage implements OnInit {
 
     this.afAuth.auth.onAuthStateChanged(user => {
       if (user) {
-        const html = ` <p> ${user.email} </p> `;
+        const html = ` <p> ${ user.email } </p> `;
         emailUser.innerHTML = html;
       } else {
         emailUser.innerHTML = '';
-
       }
     })
 
@@ -95,17 +94,16 @@ export class PerfilPage implements OnInit {
 
   displayNome() {
     const nomeUser = document.querySelector('.nome_user')
-    const nome: string = "grr"
 
-    for (let i = 0; i < this.usuarios.length; i++) {
-      if (this.usuarios[i].id == this.usuarioId) {
+      this.afAuth.auth.onAuthStateChanged(user => {
+        if (user && this.usuario == this.usuarioId) {
+          const html = ` <h2> ${ this.usuario.nome } </h2> `
+          nomeUser.innerHTML = html
+        } else {
+          nomeUser.innerHTML = ' ';
+        }
+      })
 
-        const html = ` <h2> ${nome} </h2> `;
-        nomeUser.innerHTML = html;
-      } else {
-        nomeUser.innerHTML = '';
-      }
-    }
   }
 
 }

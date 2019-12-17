@@ -1,2 +1,14 @@
-$tabbar-md-background: #00303F;
-    
+
+ ion-tabs{
+    --background: #00303F;
+ }
+
+ ion-tab-bar{
+    --background: #00303F;
+ }
+
+ ion-tab-button{
+    --background: #00303F;
+    --color: #c1cfd4;
+    --color-selected: #88bbd6;
+ }
