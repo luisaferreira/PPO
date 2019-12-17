@@ -21,8 +21,6 @@ export class PerfilPage implements OnInit {
   private usuarioId = this.afAuth.auth.currentUser.uid;
   private usuarios = new Array<Usuario>();
   private usuario: Usuario = {}
-  private usuarioSubscription: Subscription;
-
   constructor(
     private relatosService: RelatosService,
     private afAuth: AngularFireAuth,
@@ -40,7 +38,6 @@ export class PerfilPage implements OnInit {
 
   ngOnInit() {
     this.displayEmail();
-    this.displayNome();
 
     let user = this.afAuth.auth.currentUser;
 
@@ -57,40 +54,29 @@ export class PerfilPage implements OnInit {
     if (event.detail.value === 'pendentes') {
       this.slides.slidePrev();
     } else {
-      this.slides.slideNext();    
+      this.slides.slideNext();
     }
   }
 
   displayEmail() {
     const emailUser = document.querySelector('.email_user')
+    const nomeUser = document.querySelector('.nome_user')
 
     this.afAuth.auth.onAuthStateChanged(user => {
       if (user) {
-        const html = ` <p> ${ user.email } </p> `;
+        const html1 = ` <h2> ${user.displayName} </h2> `
+        const html = ` <p> ${user.email} </p> `;
         emailUser.innerHTML = html;
+        nomeUser.innerHTML = html1;
         console.log(user);
 
       } else {
         emailUser.innerHTML = '';
+        nomeUser.innerHTML = ' ';
         console.log(user);
 
       }
     })
-
   }
-
-  displayNome() {
-    const nomeUser = document.querySelector('.nome_user')
-
-      this.afAuth.auth.onAuthStateChanged(user => {
-        if (user && this.usuario == this.usuarioId) {
-          const html = ` <h2> ${ this.usuario.nome } </h2> `
-          nomeUser.innerHTML = html
-        } else {
-          nomeUser.innerHTML = ' ';
-        }
-      })
-
-  }
-
 }
+
