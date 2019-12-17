@@ -11,10 +11,7 @@ const routes: Routes = [
   { path: 'new-email', loadChildren: () => import('./paginas/new-email/new-email.module').then( m => m.NewEmailPageModule)},
   { path: 'new-senha', loadChildren: () => import('./paginas/new-senha/new-senha.module').then( m => m.NewSenhaPageModule)},
   { path: 'excluir-conta', loadChildren: () => import('./paginas/excluir-conta/excluir-conta.module').then( m => m.ExcluirContaPageModule)},
-  // { path: 'editar-relato', loadChildren: () => import('./paginas/editar-relato/editar-relato.module').then( m => m.EditarRelatoPageModule)},
   { path: 'editar-relato/:id', loadChildren: () => import('./paginas/editar-relato/editar-relato.module').then( m => m.EditarRelatoPageModule)},
-  { path: 'visualizar-relato', loadChildren: () => import('./paginas/visualizar-relato/visualizar-relato.module').then( m => m.VisualizarRelatoPageModule)},
-  { path: 'relatos', loadChildren: () => import('./paginas/relatos/relatos.module').then( m => m.RelatosPageModule)},
 ];
 
 @NgModule({

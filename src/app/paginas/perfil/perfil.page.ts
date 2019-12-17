@@ -24,15 +24,35 @@ export class PerfilPage implements OnInit {
     private relatosService: RelatosService,
     private afAuth: AngularFireAuth
    ) {
+     //recebendo lista de relatos pendentes
     this.relatosSubscriptionP = this.relatosService.getRelatos().subscribe(data => {
       this.relatosPendentes = data.filter(rel => rel.resolvido === false && rel.userId === this.usuarioId).sort((a,b) => a.createdAt > b.createdAt ? -1 : 1);
     });
+    //recebendo lista de relatos resolvidos
     this.relatosSubscriptionR = this.relatosService.getRelatos().subscribe(data => {
       this.relatosResolvidos = data.filter(rel => rel.resolvido === true && rel.userId === this.usuarioId ).sort((a,b) => a.createdAt > b.createdAt ? -1 : 1);
     });
+
+    //recebendo dados do usuário
+    
   }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    const nomeUser = document.querySelector('.nome_user')
+    const emailUser = document.querySelector('.email_user')
+
+    this.afAuth.auth.onAuthStateChanged(user => {
+
+      if (user) {
+        const html = ` <p> ${user.email} </p> `;
+
+        emailUser.innerHTML = html;
+      } else {
+        emailUser.innerHTML = '';
+        
+      }
+    })
+  }
 
   ngOnDestroy() {
     this.relatosSubscriptionP.unsubscribe();
@@ -46,4 +66,5 @@ export class PerfilPage implements OnInit {
       this.slides.slideNext();
     }
   }
+ 
 }
