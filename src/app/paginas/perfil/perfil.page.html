@@ -61,8 +61,8 @@
                   <h2>{{ relato.ocorrido }}</h2>
                   <h4>{{ relato.descricao }}</h4>
                   <p> {{ relato.endereco }} </p>
+                  <p>{{ relato.createdAt | date: 'short' }}</p>
                 </ion-label>
-                <p slot="end">{{ relato.createdAt | date: 'short' }}</p>
               </ion-item>
             </ion-item-sliding>
           </ion-list>

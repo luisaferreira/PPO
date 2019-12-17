@@ -12,11 +12,11 @@
   <div *ngIf="relato.userId != usuarioId">
     <ion-item lines="none" class="ion-margin-top">
       <ion-avatar slot="start">
-        <ion-skeleton-text></ion-skeleton-text>
+        <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
       </ion-avatar>
       <ion-label color="light">
         <h2>nome do usuário</h2>
-        <p> {{ relato.createdAt | date: 'short' }} </p>
+        <p>email@.com</p>
       </ion-label>
     </ion-item>
 
@@ -27,25 +27,21 @@
     </ion-item>
     <ion-textarea rows="2" cols="12" disabled [(ngModel)]="relato.descricao" color="light"></ion-textarea>
     <ion-item class="ion-margin">
-      <h6> {{ relato.endereco }} </h6>
+      <p> {{ relato.endereco }} </p>
+      <p> {{ relato.createdAt | date: 'short' }} </p>
     </ion-item>
+    
 
     <ion-item lines="none" *ngIf="relato.resolvido == false">
       <h6>Esta denúncia é verídica?</h6>
     </ion-item>
 
-    <ion-item lines = "none" class="nsei">
+    <ion-item lines="none" class="nsei">
       <h4> {{ relato.numLike }} </h4>
-      <ion-button (click)="like()" >
+      <ion-button (click)="like()">
         <ion-icon slot="icon-only" name="thumbs-up"></ion-icon>
       </ion-button>
     </ion-item>
-
-    <div id="opcoes" class="ion-padding" *ngIf="relato.resolvido == true">
-      <p>Resolvido</p>
-      <ion-icon name="checkbox-outline"></ion-icon>
-    </div>
-
   </div>
 
   <!-- USUÁRIO QUE POSTOU -->
@@ -57,14 +53,15 @@
         <p> {{ relato.createdAt | date: 'short' }} </p>
       </ion-label>
       <ion-label>
-        <ion-toggle [(ngModel)]="relato.resolvido"></ion-toggle>
+
         <h4 style="float: left;">Resolvido?</h4>
       </ion-label>
-
+      <ion-toggle [(ngModel)]="relato.resolvido"></ion-toggle>
     </ion-item>
     <h1> {{relato.ocorrido}} </h1>
     <ion-item lines="none">
-      <ion-textarea rows="6" cols="20" placeholder="Descreva o problema." [(ngModel)]="relato.descricao" color="light"></ion-textarea>
+      <ion-textarea rows="6" cols="20" placeholder="Descreva o problema." [(ngModel)]="relato.descricao" color="light">
+      </ion-textarea>
     </ion-item>
   </div>
 
