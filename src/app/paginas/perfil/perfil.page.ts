@@ -22,7 +22,7 @@ export class PerfilPage implements OnInit {
   private usuarioId = this.afAuth.auth.currentUser.uid;
   private usuarios = new Array<Usuario>();
   private usuario: Usuario = {}
-  private usuariosSubscription: Subscription;
+  private usuarioSubscription: Subscription;
 
   constructor(
     private relatosService: RelatosService,
@@ -39,8 +39,8 @@ export class PerfilPage implements OnInit {
     });
 
     //recebendo dados do usuário
-    this.usuariosSubscription = this.usuarioService.getUsuarios().subscribe(data => {
-      this.usuarios = data;
+    this.usuarioSubscription = this.usuarioService.getUsuario(this.usuarioId).subscribe(data => {
+      this.usuario = data;
     })
   }
 
@@ -53,7 +53,7 @@ export class PerfilPage implements OnInit {
   ngOnDestroy() {
     this.relatosSubscriptionP.unsubscribe();
     this.relatosSubscriptionR.unsubscribe();
-    this.usuariosSubscription.unsubscribe();
+    this.usuarioSubscription.unsubscribe();
   }
 
   updateID() {

@@ -1,12 +1,26 @@
 ion-content {
     // --background: #dfdce3;
-    --background: #f4f4f4;
+    --background: #00303F;
+}
+
+// #div-img-login{
+//     background: url("/src/assets/logo.png");
+//     text-align: center;
+//     margin-top: 100px;
+//     width: 25x;
+//     height: 25px;
+// }
+
+h1{
+   font-family: FreeMono, monospace;
+   color: #ffffff;
+   font-size: 50px;
 }
 
 #div-login {
     // background: #f7b733;
     height: 40%;
-    margin-top: 60%;
+    margin-top: 40%;
     text-align: center;
 }
 
@@ -27,6 +41,7 @@ ion-item {
 
 ion-icon {
     color: #c0c0c0;
+    margin-right: 15px;
 }
 
 ion-input {

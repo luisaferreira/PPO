@@ -99,17 +99,27 @@ export class EditarRelatoPage implements OnInit {
       console.log(error);
       
     }
-
-    // this.relato.numLike ++;
-    // this.relato.usersLike.push(this.afAuth.auth.currentUser.uid);
-
-    // try {
-    //   await this.relatosService.updateRelato(this.relatoId, this.relato)
-    // } catch (error) {
-    //   console.log(error);
-    //   this.presentToast("Erro ao curtir denúncia")
-    // }
   }
+
+    ifOwner(ver: boolean) {
+      if (this.relato.userId === this.usuarioId) {
+        return true;
+        console.log("caso true" + this.relato.userId);
+      } else if (this.relato.userId != this.usuarioId) {
+        return false;
+        console.log(this.relato.userId);
+      }
+    }
+
+    ifNotOwner(ver: boolean) {
+      if (this.relato.userId === this.usuarioId) {
+        return false;
+        console.log("caso false" + this.relato.userId);
+      } else if (this.relato.userId != this.usuarioId) {
+        return true;
+        console.log(this.relato.userId);
+      }
+    }
 
   async presentLoading() {
     this.loading = await this.loadingCtrl.create({
