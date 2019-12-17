@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons>
+    <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
     <ion-title>Excluir Conta</ion-title>
@@ -15,7 +15,7 @@
       <ion-grid>
         <ion-row>
           <ion-col>
-              <ion-button class="ion-margin-vertical" shape="round" expand="block" color="dark" routerLink="/configuracoes">Não excluir</ion-button>
+              <ion-button class="ion-margin-vertical" shape="round" expand="block" id="btn" routerLink="/configuracoes">Não excluir</ion-button>
           </ion-col>
           <ion-col>
               <ion-button class="ion-margin-vertical" shape="round" expand="block" color="danger" (click)="excluirConta()">Excluir</ion-button>

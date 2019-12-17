@@ -5,6 +5,7 @@ import { Relato } from 'src/app/interfaces/relato';
 import { Subscription } from 'rxjs';
 import { RelatosService } from 'src/app/services/relatos.service';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-perfil',
@@ -21,6 +22,7 @@ export class PerfilPage implements OnInit {
   private usuarioId = this.afAuth.auth.currentUser.uid;
   private usuarios = new Array<Usuario>();
   private usuario: Usuario = {}
+
   constructor(
     private relatosService: RelatosService,
     private afAuth: AngularFireAuth,

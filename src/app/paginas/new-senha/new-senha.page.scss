@@ -16,8 +16,14 @@ ion-title{
 
 ion-item{
     --background: #00303F;
+    color: #ffffff;
 }
 
 ion-list{
-    --background: #00303F;
+    background: #00303F;
+}
+
+ion-button{
+    --background: #88bbd6;
+    --color: #ffffff;
 }

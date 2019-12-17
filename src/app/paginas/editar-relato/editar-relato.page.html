@@ -23,11 +23,9 @@
     <ion-item lines="none" class="ion-margin">
       <ion-label>
         <h1> {{ relato.ocorrido }} </h1>
-        <p>
-          {{ relato.descricao }}
-        </p>
       </ion-label>
     </ion-item>
+    <ion-textarea rows="2" cols="12" disabled [(ngModel)]="relato.descricao" color="light"></ion-textarea>
     <ion-item class="ion-margin">
       <h6> {{ relato.endereco }} </h6>
     </ion-item>
@@ -64,18 +62,6 @@
       </ion-label>
 
     </ion-item>
-    <!-- 
-    <ion-list>
-      <ion-radio-group [(ngModel)]="relato.ocorrido">
-
-        
-        <ion-item>
-          <ion-label>Rua sem asfalto</ion-label>
-          <ion-radio slot="start" value="Rua sem asfalto"></ion-radio>
-        </ion-item>
-
-      </ion-radio-group>
-    </ion-list> -->
     <h1> {{relato.ocorrido}} </h1>
     <ion-item lines="none">
       <ion-textarea rows="6" cols="20" placeholder="Descreva o problema." [(ngModel)]="relato.descricao" color="light"></ion-textarea>
