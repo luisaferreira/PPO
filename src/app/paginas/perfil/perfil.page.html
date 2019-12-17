@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>perfil</ion-title>
+    <ion-title>Perfil</ion-title>
     <ion-button slot="end" routerLink="/configuracoes">
       <ion-icon slot="icon-only" name="settings"></ion-icon>
     </ion-button>
@@ -16,10 +16,11 @@
       </ion-avatar>
       <ion-label>
            <div class="nome_user"></div>
-          <!-- <h2> {{ usuario.nome }} </h2> -->
+            <h2> {{ usuario.nome }} </h2>
           <div class="email_user"></div>
         </ion-label>
     </ion-item>
+    
     <ion-segment class="ion-padding-top" (ionChange)="segmentChanged($event)" value="pendentes">
       <ion-segment-button value="pendentes">
         <ion-label>Pendentes</ion-label>
@@ -57,8 +58,8 @@
             <ion-item-sliding *ngFor="let relato of relatosPendentes">
               <ion-item button [routerLink]="['/editar-relato', relato.id]">
                 <ion-label>
-                  {{ relato.ocorrido }}
-                  <p>{{ relato.descricao }}</p>
+                  <h2>{{ relato.ocorrido }}</h2>
+                  <h4>{{ relato.descricao }}</h4>
                   <p> {{ relato.endereco }} </p>
                 </ion-label>
                 <p slot="end">{{ relato.createdAt | date: 'short' }}</p>
@@ -94,8 +95,8 @@
             <ion-item-sliding *ngFor="let relato of relatosResolvidos">
               <ion-item button [routerLink]="['/editar-relato', relato.id]">
                 <ion-label>
-                  {{ relato.ocorrido }}
-                  <p>{{ relato.descricao }}</p>
+                  <h2>{{ relato.ocorrido }}</h2>
+                  <h4>{{ relato.descricao }}</h4>
                   <p>{{ relato.createdAt | date: 'short' }}</p>
                 </ion-label>
               </ion-item>

@@ -55,11 +55,11 @@
 
     <ion-item class="ion-margin" lines="none">
       <ion-label slot="start">
-        Relatado em:
+        <h4>Relatado em:</h4>
         <p> {{ relato.createdAt | date: 'short' }} </p>
       </ion-label>
       <ion-label>
-        Resolvido?
+        <h4>Resolvido?</h4>
         <ion-toggle [(ngModel)]="relato.resolvido"></ion-toggle>
       </ion-label>
 
