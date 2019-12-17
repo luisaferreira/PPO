@@ -9,19 +9,6 @@
     </ion-item>
 
     <ion-item class="ion-margin-top" lines="none">
-      <ion-datetime [pickerOptions]="customPickerOptions" placeholder="Ano de Nascimento" displayFormat="YYYY"
-        [(ngModel)]="usuario.anoNasc">
-        <ion-icon name="calendar" slot="start"></ion-icon>
-      </ion-datetime>
-    </ion-item>
-
-    <ion-item class="ion-margin-top" lines="none">
-      <ion-label> {{ usuario.estado }} </ion-label>
-      <ion-button slot="end" fill="clear" (click)="presentPicker()">Estado</ion-button>
-
-    </ion-item>
-
-    <ion-item class="ion-margin-top" lines="none">
       <ion-input type="email" placeholder="   E-mail" [(ngModel)]="usuario.email">
         <ion-icon name="mail" slot="start"></ion-icon>
       </ion-input>
@@ -45,3 +32,9 @@
 
 
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+      <ion-button class="button-links" fill="clear" routerLink="/login" size="small" expand="block">Já tem conta?</ion-button>
+  </ion-toolbar>
+</ion-footer>

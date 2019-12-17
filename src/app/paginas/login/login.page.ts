@@ -25,7 +25,7 @@ export class LoginPage implements OnInit {
   }
 
   async login(usuario: Usuario){
-    // await this.presentLoading();
+    await this.presentLoading();
 
     try{
       await this.afAuth.auth.signInWithEmailAndPassword(this.usuario.email, this.usuario.senha);
@@ -33,7 +33,7 @@ export class LoginPage implements OnInit {
     }catch(error){
       this.presentToast(error.message);
     } finally {
-      // this.loading.dismiss();
+      this.loading.dismiss();
     }
   }
 

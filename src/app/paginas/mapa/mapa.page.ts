@@ -7,7 +7,6 @@ import { Relato } from 'src/app/interfaces/relato';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { RelatoPage } from '../relato/relato.page';
 import { Subscription } from 'rxjs';
-import { async } from 'q';
 
 declare var google: any;
 

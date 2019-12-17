@@ -16,8 +16,6 @@ export class CadastroPage implements OnInit {
 
   public usuario: Usuario = {};
   private loading: any;
-  private estado = '';
-  private year: number = new Date().getFullYear();
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -38,13 +36,6 @@ export class CadastroPage implements OnInit {
       this.presentToast("The passwords doesn't match!");
       return console.error("As senhas não são iguais");
     }
-
-    var age = this.year - this.usuario.anoNasc;
-
-     if (age < 16) {
-       this.presentToast("Menor de 16");
-       return console.error("menor de 16");
-     }
 
     try {
       const nvUsuario = await this.afAuth.auth.createUserWithEmailAndPassword(this.usuario.email, this.usuario.senha);
@@ -79,58 +70,5 @@ export class CadastroPage implements OnInit {
     toast.present();
   }
 
-  async presentPicker() {
-    let options: PickerOptions = {
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel'
-        },
-        {
-          text: 'Done'
-        }
-      ],
-      columns: [
-        {
-          name: 'usuario.estado',
-          options: [
-            { text: 'Acre', value: 'Acre' },
-            { text: 'Alagoas', value: 'Alagoas' },
-            { text: 'Amapá', value: 'Amapá' },
-            { text: 'Amazonas', value: 'Amazonas' },
-            { text: 'Bahia', value: 'Bahia' },
-            { text: 'Ceará', value: 'Ceará' },
-            { text: 'Distrito Federal', value: 'Distrito Federal' },
-            { text: 'Goiás', value: 'Goiás' },
-            { text: 'Maranhão', value: 'Maranhão' },
-            { text: 'Mato Grosso', value: 'Mato Grosso' },
-            { text: 'Mato Grosso do Sul', value: 'Mato Grosso do Sul' },
-            { text: 'Minas Gerais', value: 'Minas Gerais' },
-            { text: 'Pará', value: 'Pará' },
-            { text: 'Paraíba', value: 'Paraíba' },
-            { text: 'Paraná', value: 'Paraná' },
-            { text: 'Pernambuco', value: 'Pernambuco' },
-            { text: 'Piauí', value: 'Piauí' },
-            { text: 'Rio de Janeiro', value: 'Rio de Janeiro' },
-            { text: 'Rio Grande do Norte', value: 'Rio Grande do Norte' },
-            { text: 'Rio Grande do Sul', value: 'Rio Grande do Sul' },
-            { text: 'Rondônia', value: 'Rondônia' },
-            { text: 'Roraima', value: 'Roraima' },
-            { text: 'Santa Catarina', value: 'Santa Catarina' },
-            { text: 'São Paulo', value: 'São Paulo' },
-            { text: 'Sergipe', value: 'Sergipe' },
-            { text: 'Tocantins', value: 'Tocantins' },
-          ]
-        }
-      ]
-    };
-    const picker = await this.pickerCtrl.create(options);
-    picker.present();
-    picker.onDidDismiss().then(async data => {
-      let col = await picker.getColumn('usuario.estado');
-      console.log('col: ', col);
-      this.estado = col.options[col.selectedIndex].text;
-
-    })
-  }
+  
 }

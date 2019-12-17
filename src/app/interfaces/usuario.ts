@@ -3,6 +3,4 @@ export interface Usuario {
     senha?: string;
     confsenha?: string;
     nome?: string;
-    estado?: string;
-    anoNasc?: number;
 }
