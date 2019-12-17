@@ -5,7 +5,6 @@ import { Relato } from 'src/app/interfaces/relato';
 import { Subscription } from 'rxjs';
 import { RelatosService } from 'src/app/services/relatos.service';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-perfil',
@@ -27,7 +26,6 @@ export class PerfilPage implements OnInit {
   constructor(
     private relatosService: RelatosService,
     private afAuth: AngularFireAuth,
-    private usuarioService: UsuarioService
   ) {
     //recebendo lista de relatos pendentes
     this.relatosSubscriptionP = this.relatosService.getRelatos().subscribe(data => {
@@ -38,43 +36,28 @@ export class PerfilPage implements OnInit {
       this.relatosResolvidos = data.filter(rel => rel.resolvido === true && rel.userId === this.usuarioId).sort((a, b) => a.createdAt > b.createdAt ? -1 : 1);
     });
 
-    //recebendo dados do usuário
-    this.usuarioSubscription = this.usuarioService.getUsuario(this.afAuth.auth.currentUser.uid).subscribe(data => {
-      this.usuario = data;
-    })
   }
 
   ngOnInit() {
-    this.updateID();
     this.displayEmail();
     this.displayNome();
+
+    let user = this.afAuth.auth.currentUser;
+
+    this.usuario.nome = user.displayName;
+    this.usuario.id = user.uid;
   }
 
   ngOnDestroy() {
     this.relatosSubscriptionP.unsubscribe();
     this.relatosSubscriptionR.unsubscribe();
-    this.usuarioSubscription.unsubscribe();
-  }
-
-  updateID() {
-
-    try {
-      this.usuario.id = this.usuarioId;
-      this.usuarioService.updateUsuario(this.usuarioId, this.usuario);
-    } catch (error) {
-      console.log(error);
-    }
   }
 
   segmentChanged(event: any) {
     if (event.detail.value === 'pendentes') {
       this.slides.slidePrev();
     } else {
-      this.slides.slideNext();
-      console.log(this.usuarios[1].nome);
-      console.log(this.usuarios[2].nome);
-      // console.log(this.usuarios[3].nome);
-
+      this.slides.slideNext();    
     }
   }
 
@@ -85,8 +68,12 @@ export class PerfilPage implements OnInit {
       if (user) {
         const html = ` <p> ${ user.email } </p> `;
         emailUser.innerHTML = html;
+        console.log(user);
+
       } else {
         emailUser.innerHTML = '';
+        console.log(user);
+
       }
     })
 

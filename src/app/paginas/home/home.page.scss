@@ -2,14 +2,15 @@ ion-content {
     --background: #00303F;
 }
 
-.campo{
-    --background: rgba(0, 48, 63, 0.7);
-    border-radius: 5px;
-}
-
 ion-item{
     --background: #00303F;
 }
 ion-list{
     background: #00303F;
+}
+
+ion-searchbar{
+    --background: #a9a9a9;
+    --placeholder-color: #c0c0c0;
+    --border-radius: 10px;
 }

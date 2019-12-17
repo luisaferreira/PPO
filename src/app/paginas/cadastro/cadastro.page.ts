@@ -6,7 +6,6 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore'
 import { PickerOptions } from '@ionic/core';
 import { __await } from 'tslib';
-import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-cadastro',
@@ -17,6 +16,7 @@ export class CadastroPage implements OnInit {
 
   public usuario: Usuario = {};
   private loading: any;
+  private user = this.afAuth.auth.currentUser;
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -25,7 +25,6 @@ export class CadastroPage implements OnInit {
     private toastCtrl: ToastController,
     public router: Router,
     private pickerCtrl: PickerController,
-    private usuarioService: UsuarioService
   ) { }
 
   ngOnInit() {
@@ -34,8 +33,12 @@ export class CadastroPage implements OnInit {
   async cadastrar() {
     await this.presentLoading();
 
+    if (this.usuario.senha != this.usuario.confsenha) {
+      this.presentToast("the passwords doesn't match")
+      return console.error("As senhas não são iguais");
+    }
     try {
-      await this.usuarioService.addUsuario(this.usuario)
+      await this.afAuth.auth.createUserWithEmailAndPassword(this.usuario.email, this.usuario.senha);
       this.router.navigate(['/tabs']);
     } catch (error) {
       this.presentToast(error.message);
