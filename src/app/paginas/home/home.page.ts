@@ -17,6 +17,7 @@ export class HomePage implements OnInit{
   private relatoId: string = null;
   private loading: any;
   private usuarioID: string = this.afAuth.auth.currentUser.uid;
+  private username = this.afAuth.auth.currentUser.displayName
 
   constructor(
     private relatosService: RelatosService,
@@ -27,6 +28,9 @@ export class HomePage implements OnInit{
     this.relatosSubscription = this.relatosService.getRelatos().subscribe(data => {
       this.relatos = data.filter(rel => rel.resolvido === false );
     });
+
+    console.log(this.username);
+    
   }
 
   ngOnInit() {

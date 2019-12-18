@@ -39,12 +39,8 @@ export class PerfilPage implements OnInit {
   }
 
   ngOnInit() {
-    this.displayEmail();
+    this.displayInfo();
 
-    let user = this.afAuth.auth.currentUser;
-
-    this.usuario.nome = user.displayName;
-    this.usuario.id = user.uid;
   }
 
   ngOnDestroy() {
@@ -60,7 +56,7 @@ export class PerfilPage implements OnInit {
     }
   }
 
-  displayEmail() {
+  displayInfo() {
     const emailUser = document.querySelector('.email_user')
     const nomeUser = document.querySelector('.nome_user')
 

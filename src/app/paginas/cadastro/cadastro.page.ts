@@ -1,10 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ɵɵsanitizeUrlOrResourceUrl } from '@angular/core';
 import { Usuario } from 'src/app/interfaces/usuario';
 import { LoadingController, ToastController, PickerController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore'
-import { PickerOptions } from '@ionic/core';
 import { __await } from 'tslib';
 
 @Component({
@@ -16,15 +15,13 @@ export class CadastroPage implements OnInit {
 
   public usuario: Usuario = {};
   private loading: any;
-  private user = this.afAuth.auth.currentUser;
 
   constructor(
     private afAuth: AngularFireAuth,
     private afStore: AngularFirestore,
     private loadingCtrl: LoadingController,
     private toastCtrl: ToastController,
-    public router: Router,
-    private pickerCtrl: PickerController,
+    public router: Router
   ) { }
 
   ngOnInit() {
@@ -37,13 +34,24 @@ export class CadastroPage implements OnInit {
       this.presentToast("the passwords doesn't match")
       return console.error("As senhas não são iguais");
     }
+
     try {
-      await this.afAuth.auth.createUserWithEmailAndPassword(this.usuario.email, this.usuario.senha);
-      this.router.navigate(['/tabs']);
+      this.afAuth.auth.createUserWithEmailAndPassword(this.usuario.email, this.usuario.senha);
+      
+      var user = this.afAuth.auth.currentUser;
+      user.updateProfile({
+        displayName: this.usuario.nome
+      })
+
+      this.router.navigate(['/tabs/home']);
+      console.log(user);
+      
     } catch (error) {
       this.presentToast(error.message);
+      console.log(error);
     } finally {
       this.loading.dismiss();
+      console.log(this.usuario.nome);
     }
   }
 
@@ -63,5 +71,5 @@ export class CadastroPage implements OnInit {
     toast.present();
   }
 
-  
+
 }
