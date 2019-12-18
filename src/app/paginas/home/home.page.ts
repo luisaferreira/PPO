@@ -16,8 +16,6 @@ export class HomePage implements OnInit{
   private relatosSubscription: Subscription;
   private relatoId: string = null;
   private loading: any;
-  private usuarioID: string = this.afAuth.auth.currentUser.uid;
-  private username = this.afAuth.auth.currentUser.displayName
 
   constructor(
     private relatosService: RelatosService,

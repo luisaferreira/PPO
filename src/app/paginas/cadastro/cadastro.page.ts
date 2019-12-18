@@ -57,7 +57,7 @@ export class CadastroPage implements OnInit {
       
       
 
-      this.router.navigate(['/tabs/perfil']);
+      this.router.navigate(['/tabs/home']);
       
     } catch (error) {
       this.presentToast(error.message);
