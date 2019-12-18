@@ -18,6 +18,7 @@ export class EditarRelatoPage implements OnInit {
   private relatoSubscription: Subscription
   private loading: any;
   private usuarioId: string = this.afAuth.auth.currentUser.uid;
+  private user = this.afAuth.auth.currentUser;
 
   constructor(
     private afAuth: AngularFireAuth,
@@ -26,21 +27,21 @@ export class EditarRelatoPage implements OnInit {
     private activatedRoute: ActivatedRoute,
     private loadingCtrl: LoadingController,
     private toastCtrl: ToastController,
-  ) { }
+  ) { } 
 
   ngOnInit() {
-    this.activatedRoute.params
-      .subscribe(params => {
-        this.inicializar(params['id']);
-      })
+     this.activatedRoute.params
+       .subscribe(params => {
+         this.inicializar(params['id']);
+       })
   }
 
-  inicializar(id: string) {
-    // console.log('inicializado: ' + id);
+   inicializar(id: string) {
+    console.log('inicializado: ' + id);
     this.relatoId = id;
 
-    if (this.relatoId) this.loadRelato();
-  }
+     if (this.relatoId) this.loadRelato();
+   }
 
   ngOnDestroy() {
     if (this.relatoSubscription) this.relatoSubscription.unsubscribe();
@@ -51,6 +52,7 @@ export class EditarRelatoPage implements OnInit {
       this.relato = data;
     });
   }
+
 
   async updateRelato() {
     await this.presentLoading();
@@ -72,8 +74,12 @@ export class EditarRelatoPage implements OnInit {
 
     try {
       await this.relatosService.deleteRelato(this.relatoId);
+      this.navCtrl.navigateBack('/tabs/home');
+      console.log(this.relato.emailUser);
+      
     } catch (error) {
-      this.presentToast("Erro ao excluir o relato")
+      this.presentToast("Erro ao excluir o relato");
+      console.clear();
     } finally {
       this.loading.dismiss();
     }

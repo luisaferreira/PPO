@@ -56,6 +56,19 @@ export class PerfilPage implements OnInit {
     }
   }
 
+  async deleteRelato(id: string) {
+    // await this.presentLoading();
+
+    try {
+      await this.relatosService.deleteRelato(id);
+
+    } catch (error) {
+      // this.presentToast("Erro ao excluir o relato")
+      console.log(error);
+      
+    }
+  }
+
   displayInfo() {
     const emailUser = document.querySelector('.email_user')
     const nomeUser = document.querySelector('.nome_user')

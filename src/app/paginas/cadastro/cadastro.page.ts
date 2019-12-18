@@ -39,15 +39,25 @@ export class CadastroPage implements OnInit {
             
       this.afAuth.auth.createUserWithEmailAndPassword(this.usuario.email, this.usuario.senha);
 
-      var user = this.afAuth.auth.currentUser
-      user.updateProfile({
-        displayName: this.usuario.nome
+      this.afAuth.auth.onAuthStateChanged(user => {
+        if (user) {
+          user.updateProfile({
+            displayName: this.usuario.nome
+          })
+        }
+        console.log(user);
       })
 
-      console.log(user);
+      
+      // var user = this.afAuth.auth.currentUser
+      // user.updateProfile({
+      //   displayName: this.usuario.nome
+      // })
+
+      
       
 
-      this.router.navigate(['/tabs/home']);
+      this.router.navigate(['/tabs/perfil']);
       
     } catch (error) {
       this.presentToast(error.message);

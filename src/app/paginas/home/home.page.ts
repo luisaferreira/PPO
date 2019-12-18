@@ -28,9 +28,6 @@ export class HomePage implements OnInit{
     this.relatosSubscription = this.relatosService.getRelatos().subscribe(data => {
       this.relatos = data.filter(rel => rel.resolvido === false );
     });
-
-    console.log(this.username);
-    
   }
 
   ngOnInit() {
