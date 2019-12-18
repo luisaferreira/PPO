@@ -15,6 +15,12 @@ ion-button{
     float: right;
 }
 
+#like {
+    --background-activated: none;
+    --color-activated: #88bbd6;
+    --ripple-color: none;
+}
+
 ion-toolbar{
     --background: #002a37;
 }
@@ -33,10 +39,6 @@ ion-content {
 
 p{
     color: #666 !important;
-}
-
-nsei{
-    margin-left: 50px;
 }
 
 h1{

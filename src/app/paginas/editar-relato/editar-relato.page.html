@@ -27,21 +27,20 @@
     </ion-item>
     <ion-textarea rows="2" cols="12" disabled [(ngModel)]="relato.descricao" color="light"></ion-textarea>
     <ion-item class="ion-margin">
-      <p> {{ relato.endereco }} </p>
-      <p> {{ relato.createdAt | date: 'short' }} </p>
+      <ion-label>
+          <p> {{ relato.endereco }} </p>
+          <p slot="end"> {{ relato.createdAt | date: 'short' }} </p>    
+      </ion-label>
     </ion-item>
     
-
-    <ion-item lines="none" *ngIf="relato.resolvido == false">
-      <h6>Esta denúncia é verídica?</h6>
+    <ion-item lines="none" style="float: right;">
+        <h6>Esta denúncia é verídica?</h6>
+        <ion-button (click)="like()" fill="clear" id="like">
+            <ion-icon slot="icon-only" name="thumbs-up"></ion-icon>
+          </ion-button>
+          <h6 > {{ relato.numLike }} </h6>
     </ion-item>
-
-    <ion-item lines="none" class="nsei">
-      <h4> {{ relato.numLike }} </h4>
-      <ion-button (click)="like()">
-        <ion-icon slot="icon-only" name="thumbs-up"></ion-icon>
-      </ion-button>
-    </ion-item>
+         
   </div>
 
   <!-- USUÁRIO QUE POSTOU -->

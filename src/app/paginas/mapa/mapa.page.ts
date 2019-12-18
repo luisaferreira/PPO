@@ -171,9 +171,7 @@ export class MapaPage implements OnInit {
         let address = [
           results[0].subLocality || "",
           results[0].subAdminArea || "",
-          results[0].postalCode || "",
           results[0].adminArea || "",
-          results[0].country || "",
         ].join(", ");
 
         console.log(address);
