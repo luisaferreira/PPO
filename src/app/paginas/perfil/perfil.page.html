@@ -99,7 +99,7 @@
           </ion-list>
           <ion-list>
             <ion-item-sliding *ngFor="let relato of relatosResolvidos">
-              <ion-item button [routerLink]="['/editar-relato', relato.id]">
+              <ion-item button [routerLink]="['/visualizar-relato', relato.id]">
                 <ion-label>
                   <h2>{{ relato.ocorrido }}</h2>
                   <h4>{{ relato.descricao }}</h4>

@@ -24,7 +24,7 @@ import { GoogleMaps } from '@ionic-native/google-maps';
     AppRoutingModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
-    AngularFirestoreModule,
+    AngularFirestoreModule.enablePersistence(),
     FormsModule
   ],
   providers: [
