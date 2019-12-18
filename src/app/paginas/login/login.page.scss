@@ -4,10 +4,16 @@ ion-content {
 }
 
 
+ion-toolbar {
+    --background: #00303F;
+    --border-color: #00303F;
+    --border-width: 0px;
+}
+
 h1{
    font-family: FreeMono, monospace;
    color: #ffffff;
-   font-size: 50px;
+   font-size: 41px;
 }
 
 #div-login {
@@ -40,12 +46,6 @@ ion-icon {
 ion-input {
     --placeholder-color: #c0c0c0;
     --color: #a9a9a9;
-}
-
-hr{
-    height: 0.5px;
-    width: 50%;
-    background: #d7d7d7;
 }
 
 .button-links {

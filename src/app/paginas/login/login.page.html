@@ -2,7 +2,7 @@
 
 
   <div id="div-login" class="ion-padding" lines="full">
-    <h1>Map Info</h1>
+    <h1>Mostra Brasil</h1>
 
     <!-- <span>Login</span> -->
     <ion-item class="ion-margin-top" lines="none">
@@ -20,9 +20,11 @@
     <ion-button id="button-login" class="ion-margin-top" (click)="login()" fill="solid" expand="block">Entrar</ion-button>
   </div>
 
-  <div id="div-links">
-    <ion-button class="button-links" fill="clear" size="small" expand="block">Esqueceu sua senha?</ion-button>
-    <hr>
-    <ion-button class="button-links" fill="clear" routerLink="/cadastro" size="small" expand="block">Ainda não tem conta?</ion-button>
-  </div>
 </ion-content>
+
+
+<ion-footer>
+    <ion-toolbar>
+        <ion-button class="button-links" fill="clear" routerLink="/cadastro" size="small" expand="block">Ainda não tem conta?</ion-button>
+    </ion-toolbar>
+  </ion-footer>
