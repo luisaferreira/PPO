@@ -16,6 +16,7 @@ export class VisualizarRelatoPage implements OnInit {
   private relato: Relato = {};
   private relatoId: string = null;
   private relatoSubscription: Subscription;
+  private usuarioId = this.afAuth.auth.currentUser.uid
 
   constructor(
     private afAuth: AngularFireAuth,

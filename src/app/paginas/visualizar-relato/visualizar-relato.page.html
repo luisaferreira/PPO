@@ -34,7 +34,7 @@
 
     <ion-item lines="none" style="float: right;">
       <h6>Esta denúncia é verídica?</h6>
-      <ion-button (click)="like()" fill="clear" id="like">
+      <ion-button (click)="like()" fill="clear" [disabled]="relato.userId == usuarioId" id="like">
         <ion-icon slot="icon-only" name="thumbs-up"></ion-icon>
       </ion-button>
       <h6> {{ relato.numLike }} </h6>
