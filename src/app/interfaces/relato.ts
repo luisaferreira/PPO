@@ -11,4 +11,6 @@ export interface Relato {
     resolvido?: boolean;
     numLike?: number;
     usersLike?: Array<string>;
+    emailUser?: string;
+    nameUser?: string;    
 }

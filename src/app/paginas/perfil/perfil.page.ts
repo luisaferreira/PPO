@@ -62,19 +62,18 @@ export class PerfilPage implements OnInit {
 
     this.afAuth.auth.onAuthStateChanged(user => {
       if (user) {
-        const html1 = ` <h2> ${user.displayName} </h2> `
-        const html = ` <p> ${user.email} </p> `;
-        emailUser.innerHTML = html;
-        nomeUser.innerHTML = html1;
-        console.log(user);
+        const htmlName = `<h2> ${ user.displayName } </h2>`
+        const htmlEmail = `<h2> ${ user.email } </h2>`
 
+        nomeUser.innerHTML = htmlName
+        emailUser.innerHTML = htmlEmail
       } else {
-        emailUser.innerHTML = '';
-        nomeUser.innerHTML = ' ';
-        console.log(user);
+        nomeUser.innerHTML = ''
+        emailUser.innerHTML = ''
 
       }
     })
+    
   }
 }
 

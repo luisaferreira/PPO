@@ -61,6 +61,8 @@ export class RelatoPage implements OnInit {
     this.relato.resolvido = false;
     this.relato.userId = this.afAuth.auth.currentUser.uid;
     this.relato.usersLike = [];
+    this.relato.emailUser = this.afAuth.auth.currentUser.email;
+    this.relato.nameUser = this.afAuth.auth.currentUser.displayName;
     
     try {
       await this.relatosService.addRelato(this.relato);
