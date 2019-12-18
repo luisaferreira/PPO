@@ -38,19 +38,7 @@ export class HomePage implements OnInit{
     this.relatosSubscription.unsubscribe();
   }
 
-  async deleteRelato(id: string) {
-    await this.presentLoading();
-
-    try {
-      await this.relatosService.deleteRelato(this.relatoId);
-    } catch (error) {
-      this.presentToast("Erro ao excluir o relato")
-      console.log(error);
-    } finally {
-      this.loading.dismiss();
-    }
-  }
-
+  
   async presentLoading() {
     this.loading = await this.loadingCtrl.create({
       message: "Aguarde, por favor..."

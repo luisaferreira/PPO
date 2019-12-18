@@ -4,9 +4,9 @@
 
   <ion-list *ngIf="!relatos.length">
     <ion-item *ngFor="let item of [0, 1, 2]">
-      <ion-avatar slot="start">
-        <ion-skeleton-text animated></ion-skeleton-text>
-      </ion-avatar>
+        <ion-avatar slot="start">
+            <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
+        </ion-avatar>
       <ion-label>
         <h3>
           <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
@@ -23,9 +23,9 @@
 
   <ion-list>
     <ion-item-sliding *ngFor="let relato of relatos">
-      <ion-item button [routerLink]="['/editar-relato', relato.id]">
+      <ion-item button [routerLink]="['/visualizar-relato', relato.id]">
         <ion-avatar slot="start">
-          <ion-skeleton-text animated></ion-skeleton-text>
+            <img src="https://gravatar.com/avatar/dba6bae8c566f9d4041fb9cd9ada7741?d=identicon&f=y">
         </ion-avatar>
         <ion-label color="light">
           {{ relato.ocorrido }}

@@ -15,7 +15,7 @@ export class EditarRelatoPage implements OnInit {
 
   private relato: Relato = {};
   private relatoId: string = null;
-  private relatoSubscription: Subscription
+  private relatoSubscription: Subscription;
   private loading: any;
   private usuarioId: string = this.afAuth.auth.currentUser.uid;
   private user = this.afAuth.auth.currentUser;
@@ -26,7 +26,7 @@ export class EditarRelatoPage implements OnInit {
     private navCtrl: NavController,
     private activatedRoute: ActivatedRoute,
     private loadingCtrl: LoadingController,
-    private toastCtrl: ToastController,
+    private toastCtrl: ToastController
   ) { } 
 
   ngOnInit() {
@@ -53,7 +53,6 @@ export class EditarRelatoPage implements OnInit {
     });
   }
 
-
   async updateRelato() {
     await this.presentLoading();
 
@@ -68,64 +67,6 @@ export class EditarRelatoPage implements OnInit {
       this.loading.dismiss();
     }
   }
-
-  async deleteRelato(id: string) {
-    await this.presentLoading();
-
-    try {
-      await this.relatosService.deleteRelato(this.relatoId);
-      this.navCtrl.navigateBack('/tabs/home');
-      console.log(this.relato.emailUser);
-      
-    } catch (error) {
-      this.presentToast("Erro ao excluir o relato");
-      console.clear();
-    } finally {
-      this.loading.dismiss();
-    }
-  }
-
-  async like() {
-    const userVer = this.relato.usersLike.includes(this.afAuth.auth.currentUser.uid);
-
-    try {
-      if (userVer === false){
-        this.relato.numLike ++;
-        this.relato.usersLike.push(this.afAuth.auth.currentUser.uid);
-        await this.relatosService.updateRelato(this.relatoId, this.relato)
-      } else if (userVer === true){
-        this.relato.numLike --;
-
-        const index = this.relato.usersLike.indexOf(this.afAuth.auth.currentUser.uid);
-        this.relato.usersLike.splice(index, 1);
-
-        await this.relatosService.updateRelato(this.relatoId, this.relato)
-      }
-    } catch (error) {
-      console.log(error);
-      
-    }
-  }
-
-    ifOwner(ver: boolean) {
-      if (this.relato.userId === this.usuarioId) {
-        return true;
-        console.log("caso true" + this.relato.userId);
-      } else if (this.relato.userId != this.usuarioId) {
-        return false;
-        console.log(this.relato.userId);
-      }
-    }
-
-    ifNotOwner(ver: boolean) {
-      if (this.relato.userId === this.usuarioId) {
-        return false;
-        console.log("caso false" + this.relato.userId);
-      } else if (this.relato.userId != this.usuarioId) {
-        return true;
-        console.log(this.relato.userId);
-      }
-    }
 
   async presentLoading() {
     this.loading = await this.loadingCtrl.create({
